@@ -11,6 +11,10 @@ def redraw_game():
     pygame.draw.rect(display, window.black, window.playable_rect)
     pygame.draw.line(display, window.white, *window.center_line, 10)
     
+    # Paddle
+    for paddle in paddles.values():
+        paddle.draw(display)
+
     # Blit to Screen ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)
     win.blit(resized_display, (0, 0))
@@ -44,6 +48,15 @@ if __name__ == "__main__":
     display = pygame.Surface(window.rect.size)
     pygame.display.set_caption("Pong!")
     clock = pygame.time.Clock()
+
+    # Initialize Paddle
+    paddles = {
+        "left_paddle": Paddle(
+            10, window.rect.h // 2 - Paddle.HEIGHT // 2),
+        "right_paddle": Paddle(
+            window.rect.w - 10 - Paddle.WIDTH, 
+            window.rect.h // 2 - Paddle.HEIGHT // 2)
+    }
 
     # Execute
     game_loop()
