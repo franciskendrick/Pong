@@ -1,4 +1,5 @@
 from windows import window
+from paddle import Paddle
 import pygame
 import sys
 
