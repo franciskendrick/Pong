@@ -8,7 +8,8 @@ def redraw_game():
     # Background
     display.fill(window.white)
     pygame.draw.rect(display, window.black, window.playable_rect)
-
+    pygame.draw.line(display, window.white, *window.center_line, 10)
+    
     # Blit to Screen ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)
     win.blit(resized_display, (0, 0))
