@@ -12,6 +12,13 @@ class Window:
         #     pygame.display.Info().current_w / self.rect.width,
         #     pygame.display.Info().current_h / self.rect.height)
 
+        # Court
+        self.playable_rect = pygame.Rect(0, 10, 640, 360-20)
+
+        # Colors
+        self.black = (0, 0, 0)
+        self.white = (255, 255, 255)
+
         # Framerate
         self.framerate = 60
 
