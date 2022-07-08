@@ -5,13 +5,20 @@ pygame.init()
 
 
 class Ball:
+    # Ball size
+    WIDTH = 10
+    HEIGHT = 10
+
     # Initialize -------------------------------------------------- #
     def __init__(self):
-        pass
+        self.rect = pygame.Rect(
+            (window.rect.w // 2 - self.WIDTH // 2) + 1, 
+            (window.rect.h // 2 - self.HEIGHT // 2) + 1, 
+            self.WIDTH, self.HEIGHT)
 
     # Draw -------------------------------------------------------- #
     def draw(self, display):
-        pass
+        pygame.draw.rect(display, window.white, self.rect)
 
     # Update ------------------------------------------------------ #
     def movement(self):

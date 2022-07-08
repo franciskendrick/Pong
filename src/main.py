@@ -16,6 +16,9 @@ def redraw_game():
     for paddle in paddles.values():
         paddle.draw(display)
 
+    # Draw ball
+    ball.draw(display)
+
     # Blit to screen ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)
     win.blit(resized_display, (0, 0))
@@ -70,11 +73,14 @@ if __name__ == "__main__":
     # Initialize paddle
     paddles = {
         "left": Paddle(
-            10, window.rect.h // 2 - Paddle.HEIGHT // 2),
+            10, (window.rect.h // 2 - Paddle.HEIGHT // 2) + 1),
         "right": Paddle(
             window.rect.w - 10 - Paddle.WIDTH, 
-            window.rect.h // 2 - Paddle.HEIGHT // 2)
+            (window.rect.h // 2 - Paddle.HEIGHT // 2) + 1)
     }
+
+    # Initialize ball
+    ball = Ball()
 
     # Execute
     game_loop()
