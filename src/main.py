@@ -1,5 +1,6 @@
 from windows import window
 from paddle import Paddle
+from ball import Ball
 import pygame
 import sys
 
