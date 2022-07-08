@@ -9,6 +9,9 @@ class Ball:
     WIDTH = 10
     HEIGHT = 10
 
+    # Movement
+    MAX_VEL = 5
+
     # Initialize -------------------------------------------------- #
     def __init__(self):
         self.rect = pygame.Rect(
@@ -16,14 +19,20 @@ class Ball:
             (window.rect.h // 2 - self.HEIGHT // 2) + 1, 
             self.WIDTH, self.HEIGHT)
 
+        self.x_vel = self.MAX_VEL
+        self.y_vel = 0
+
     # Draw -------------------------------------------------------- #
     def draw(self, display):
         pygame.draw.rect(display, window.white, self.rect)
 
     # Update ------------------------------------------------------ #
-    def movement(self):
-        pass
+    def update(self):
+        self.movement()
 
-    # Functions --------------------------------------------------- #
+    def movement(self):
+        self.rect.x += self.x_vel
+        self.rect.y += self.y_vel
+
     def collisions(self):
         pass

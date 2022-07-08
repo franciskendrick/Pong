@@ -50,6 +50,9 @@ def game_loop():
         for (side, paddle) in paddles.items():
             paddle.movement(paddle_buttonkeys[side])
 
+        # Update ball
+        ball.update()
+
         # Update display
         redraw_game()
         clock.tick(window.framerate)
