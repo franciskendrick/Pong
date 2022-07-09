@@ -51,7 +51,7 @@ def game_loop():
             paddle.movement(paddle_buttonkeys[side])
 
         # Update ball
-        ball.update()
+        ball.update(paddles)
 
         # Update display
         redraw_game()
