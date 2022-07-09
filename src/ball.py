@@ -36,18 +36,30 @@ class Ball:
         self.rect.y += self.y_vel
 
     def collisions(self, paddles):
-        # Ball is going left
-        if self.x_vel < 0:
-            handle_hitbox = self.rect.copy()
-            if (handle_hitbox.centery >= paddles["left"].rect.top) and ( 
-                    handle_hitbox.centery <= paddles["left"].rect.bottom) and (
-                    handle_hitbox.left <= paddles["left"].rect.right):
+        if self.x_vel < 0:  # ball is going LEFT
+            if (self.rect.centery >= paddles["left"].rect.top) and ( 
+                    self.rect.centery <= paddles["left"].rect.bottom) and (
+                    self.rect.left <= paddles["left"].rect.right):
+                
+                # Update x velocity
                 self.x_vel *= -1
 
-        # Ball is going right
-        else:
-            handle_hitbox = self.rect.copy()
-            if (handle_hitbox.centery >= paddles["right"].rect.top) and (
-                    handle_hitbox.centery <= paddles["right"].rect.bottom) and (
-                    handle_hitbox.right >= paddles["right"].rect.left):
+                # Update y velocity
+                difference_in_y = paddles["left"].rect.centery - self.rect.centery
+                reduction_factor = (paddles["left"].rect.height / 2) / self.MAX_VEL
+                new_y_vel = difference_in_y / reduction_factor
+                self.y_vel = -1 * new_y_vel
+
+        else:  # ball is going RIGHT
+            if (self.rect.centery >= paddles["right"].rect.top) and (
+                    self.rect.centery <= paddles["right"].rect.bottom) and (
+                    self.rect.right >= paddles["right"].rect.left):
+                
+                # Update x velocity
                 self.x_vel *= -1
+
+                # Update y velocity
+                difference_in_y = paddles["right"].rect.centery - self.rect.centery
+                reduction_factor = (paddles["right"].rect.height / 2) / self.MAX_VEL
+                new_y_vel = difference_in_y / reduction_factor
+                self.y_vel = -1 * new_y_vel
