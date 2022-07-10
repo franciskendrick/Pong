@@ -9,16 +9,21 @@ class Ball:
     WIDTH = 10
     HEIGHT = 10
 
+    # Ball position
+    ORIGINAL_X = (window.rect.w // 2 - WIDTH // 2) + 1
+    ORIGINAL_Y = (window.rect.h // 2 - HEIGHT // 2) + 1
+
     # Movement
     MAX_VEL = 5
 
     # Initialize -------------------------------------------------- #
     def __init__(self):
+        # Rectangle
         self.rect = pygame.Rect(
-            (window.rect.w // 2 - self.WIDTH // 2) + 1, 
-            (window.rect.h // 2 - self.HEIGHT // 2) + 1, 
+            self.ORIGINAL_X, self.ORIGINAL_Y, 
             self.WIDTH, self.HEIGHT)
 
+        # Velocities
         self.x_vel = self.MAX_VEL
         self.y_vel = 0
 
@@ -73,3 +78,11 @@ class Ball:
                 reduction_factor = (paddles["right"].rect.height / 2) / self.MAX_VEL
                 new_y_vel = difference_in_y / reduction_factor
                 self.y_vel = -1 * new_y_vel
+
+    # Functions --------------------------------------------------- #
+    def reset(self):
+        self.rect.x = self.ORIGINAL_X
+        self.rect.y = self.ORIGINAL_Y
+
+        self.x_vel *= -1
+        self.y_vel = 0

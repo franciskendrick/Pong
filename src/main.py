@@ -2,6 +2,7 @@ from windows import window
 from paddle import Paddle
 from ball import Ball
 import pygame
+import time
 import sys
 
 
@@ -28,6 +29,9 @@ def redraw_game():
 
 # Loop
 def game_loop():
+    global time_of_round_end, round_finished
+
+    # Paddle's button keys
     paddle_buttonkeys = {
         "left": {
             "up": pygame.K_w,
@@ -51,7 +55,25 @@ def game_loop():
             paddle.movement(paddle_buttonkeys[side])
 
         # Update ball
-        ball.update(paddles)
+        if not round_finished:
+            # Update ball
+            ball.update(paddles)
+
+            # Check for round winner
+            if ball.rect.centerx <= window.playable_rect.left:  # left player lost
+                time_of_round_end = time.perf_counter()
+                ball.rect.right = window.playable_rect.left
+                round_finished = True
+            elif ball.rect.centerx >= window.playable_rect.right:  # right player lost
+                time_of_round_end = time.perf_counter()
+                ball.rect.left = window.playable_rect.right
+                round_finished = True
+        else:
+            # Reset ball 1.5 seconds after round winner has been declared
+            dt = time.perf_counter() - time_of_round_end
+            if dt * 1000 >= 1500:
+                ball.reset()
+                round_finished = False
 
         # Update display
         redraw_game()
@@ -84,6 +106,10 @@ if __name__ == "__main__":
 
     # Initialize ball
     ball = Ball()
+
+    # Initialize win-lose variables
+    time_of_round_end = None
+    round_finished = False
 
     # Execute
     game_loop()
