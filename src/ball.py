@@ -29,13 +29,23 @@ class Ball:
     # Update ------------------------------------------------------ #
     def update(self, paddles):
         self.movement()
-        self.collisions(paddles)
+        self.edge_collisions()
+        self.paddle_collisions(paddles)
 
     def movement(self):
         self.rect.x += self.x_vel
         self.rect.y += self.y_vel
 
-    def collisions(self, paddles):
+    def edge_collisions(self):
+        handle_rect = self.rect.copy()
+        handle_rect.x += self.x_vel
+        handle_rect.y += self.y_vel
+        if handle_rect.bottom >= window.playable_rect.bottom:
+            self.y_vel *= -1
+        elif handle_rect.top <= window.playable_rect.top:
+            self.y_vel *= -1
+
+    def paddle_collisions(self, paddles):
         if self.x_vel < 0:  # ball is going LEFT
             if (self.rect.centery >= paddles["left"].rect.top) and ( 
                     self.rect.centery <= paddles["left"].rect.bottom) and (
