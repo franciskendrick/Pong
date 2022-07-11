@@ -1,0 +1,1 @@
+from .font_to_dict import clip_font_to_dict
