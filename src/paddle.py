@@ -6,16 +6,16 @@ pygame.init()
 
 class Paddle:
     # Paddle size
-    WIDTH = 5
-    HEIGHT = 50
+    width = 5
+    height = 50
 
     # Movement
-    VEL = 4
+    vel = 4
 
     # Initialize -------------------------------------------------- #
     def __init__(self, x, y):
         self.rect = pygame.Rect(
-            x, y, self.WIDTH, self.HEIGHT)
+            x, y, self.width, self.height)
 
     # Draw -------------------------------------------------------- #
     def draw(self, display):
@@ -29,16 +29,16 @@ class Paddle:
         if keys[buttons["up"]]:
             # Get a hitbox handle
             handle_hitbox = self.rect.copy()
-            handle_hitbox.y -= self.VEL
+            handle_hitbox.y -= self.vel
             # Check for playable rectangle and hitbox collision
             if window.playable_rect.top < handle_hitbox.top:
-                self.rect.y -= self.VEL
+                self.rect.y -= self.vel
 
         # Down movement
         if keys[buttons["down"]]: 
             # Get a hitbox handle
             handle_hitbox = self.rect.copy()
-            handle_hitbox.y += self.VEL
+            handle_hitbox.y += self.vel
             # Check for playable rectangle and hitbox collision
             if window.playable_rect.bottom > handle_hitbox.bottom:
-                self.rect.y += self.VEL
+                self.rect.y += self.vel

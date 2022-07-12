@@ -6,25 +6,25 @@ pygame.init()
 
 class Ball:
     # Ball size
-    WIDTH = 10
-    HEIGHT = 10
+    width = 10
+    height = 10
 
     # Ball position
-    ORIGINAL_X = (window.rect.w // 2 - WIDTH // 2) + 1
-    ORIGINAL_Y = (window.rect.h // 2 - HEIGHT // 2) + 1
+    original_x = (window.rect.w // 2 - width // 2) + 1
+    original_y = (window.rect.h // 2 - height // 2) + 1
 
     # Movement
-    MAX_VEL = 5
+    max_vel = 5
 
     # Initialize -------------------------------------------------- #
     def __init__(self):
         # Rectangle
         self.rect = pygame.Rect(
-            self.ORIGINAL_X, self.ORIGINAL_Y, 
-            self.WIDTH, self.HEIGHT)
+            self.original_x, self.original_y, 
+            self.width, self.height)
 
         # Velocities
-        self.x_vel = self.MAX_VEL
+        self.x_vel = self.max_vel
         self.y_vel = 0
 
     # Draw -------------------------------------------------------- #
@@ -61,7 +61,7 @@ class Ball:
 
                 # Update y velocity
                 difference_in_y = paddles["left"].rect.centery - self.rect.centery
-                reduction_factor = (paddles["left"].rect.height / 2) / self.MAX_VEL
+                reduction_factor = (paddles["left"].rect.height / 2) / self.max_vel
                 new_y_vel = difference_in_y / reduction_factor
                 self.y_vel = -1 * new_y_vel
 
@@ -75,14 +75,14 @@ class Ball:
 
                 # Update y velocity
                 difference_in_y = paddles["right"].rect.centery - self.rect.centery
-                reduction_factor = (paddles["right"].rect.height / 2) / self.MAX_VEL
+                reduction_factor = (paddles["right"].rect.height / 2) / self.max_vel
                 new_y_vel = difference_in_y / reduction_factor
                 self.y_vel = -1 * new_y_vel
 
     # Functions --------------------------------------------------- #
     def reset(self):
-        self.rect.x = self.ORIGINAL_X
-        self.rect.y = self.ORIGINAL_Y
+        self.rect.x = self.original_x
+        self.rect.y = self.original_y
 
         self.x_vel *= -1
         self.y_vel = 0

@@ -1,5 +1,4 @@
 from utils import clip_font_to_dict
-from windows import window
 import pygame
 import os
 
@@ -13,24 +12,24 @@ resources_path = os.path.abspath(
 
 
 class NumberFont:
+    # Order of characters in font spriteset
+    order = [
+        "0", "1", "2", "3", "4",
+        "5", "6", "7", "8", "9"
+    ]
+
+    # Spacing
+    character_spacing = 1
+
     def __init__(self):
         # Get font spriteset
         font_set = pygame.image.load(
             f"{resources_path}/number_font.png")
         font_set.convert()
 
-        # Order of characters in font spriteset
-        self.order = [
-            "0", "1", "2", "3", "4",
-            "5", "6", "7", "8", "9"
-        ]
-
         # Get characters dictionary
         self.characters = clip_font_to_dict(
             font_set, self.order)
-
-        # Spacing
-        self.character_spacing = 1
 
     def render_font(self, display, text, pos, enlarge=1):
         display_handle = pygame.Surface(

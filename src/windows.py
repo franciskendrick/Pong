@@ -14,10 +14,10 @@ class Window:
 
         # Court
         self.playable_rect = pygame.Rect(
-            0, 10, self.rect.w, self.rect.h-20)
+            0, 10, self.rect.width, self.rect.h-20)
         self.center_line = [
-            (self.rect.w // 2, 0),
-            (self.rect.w // 2, self.rect.h)]
+            (self.rect.width // 2, 0),
+            (self.rect.width // 2, self.rect.h)]
 
         # Colors
         self.black = (0, 0, 0)

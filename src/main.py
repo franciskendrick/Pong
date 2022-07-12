@@ -61,12 +61,22 @@ def game_loop():
 
             # Check for round winner
             if ball.rect.centerx <= window.playable_rect.left:  # left player lost
+                # Update time of round end variable
                 time_of_round_end = time.perf_counter()
+
+                # Update ball's position so it would be out of the screen
                 ball.rect.right = window.playable_rect.left
+
+                # Update round finished variable to true
                 round_finished = True
             elif ball.rect.centerx >= window.playable_rect.right:  # right player lost
+                # Update time of round end variable
                 time_of_round_end = time.perf_counter()
+
+                # Update ball's position so it would be out of the screen
                 ball.rect.left = window.playable_rect.right
+
+                # Update round finished variable to true
                 round_finished = True
         else:
             # Reset ball 1.5 seconds after round winner has been declared
@@ -98,10 +108,10 @@ if __name__ == "__main__":
     # Initialize paddle
     paddles = {
         "left": Paddle(
-            10, (window.rect.h // 2 - Paddle.HEIGHT // 2) + 1),
+            10, (window.rect.height // 2 - Paddle.height // 2) + 1),
         "right": Paddle(
-            window.rect.w - 10 - Paddle.WIDTH, 
-            (window.rect.h // 2 - Paddle.HEIGHT // 2) + 1)
+            window.rect.width - 10 - Paddle.width, 
+            (window.rect.height // 2 - Paddle.height // 2) + 1)
     }
 
     # Initialize ball
