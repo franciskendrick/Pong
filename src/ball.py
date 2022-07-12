@@ -10,8 +10,8 @@ class Ball:
     height = 10
 
     # Ball position
-    original_x = (window.rect.w // 2 - width // 2) + 1
-    original_y = (window.rect.h // 2 - height // 2) + 1
+    original_x = (window.rect.w // 2 - width // 2)
+    original_y = (window.rect.h // 2 - height // 2)
 
     # Movement
     max_vel = 5

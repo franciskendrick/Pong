@@ -1,4 +1,5 @@
 from windows import window
+from scoreboard import Scoreboard
 from paddle import Paddle
 from ball import Ball
 import pygame
@@ -11,8 +12,11 @@ def redraw_game():
     # Draw background
     display.fill(window.white)
     pygame.draw.rect(display, window.black, window.playable_rect)
-    pygame.draw.line(display, window.white, *window.center_line, 10)
+    pygame.draw.rect(display, window.white, window.center_line)
     
+    # Draw scoreboard
+    scoreboard.draw(display)
+
     # Draw paddles
     for paddle in paddles.values():
         paddle.draw(display)
@@ -67,6 +71,9 @@ def game_loop():
                 # Update ball's position so it would be out of the screen
                 ball.rect.right = window.playable_rect.left
 
+                # Update winner's (right's) score
+                scoreboard.scores["right"] += 1
+
                 # Update round finished variable to true
                 round_finished = True
             elif ball.rect.centerx >= window.playable_rect.right:  # right player lost
@@ -75,6 +82,9 @@ def game_loop():
 
                 # Update ball's position so it would be out of the screen
                 ball.rect.left = window.playable_rect.right
+
+                # Update winner's (left's) score
+                scoreboard.scores["left"] += 1
 
                 # Update round finished variable to true
                 round_finished = True
@@ -108,14 +118,17 @@ if __name__ == "__main__":
     # Initialize paddle
     paddles = {
         "left": Paddle(
-            10, (window.rect.height // 2 - Paddle.height // 2) + 1),
+            10, (window.rect.height // 2 - Paddle.height // 2)),
         "right": Paddle(
             window.rect.width - 10 - Paddle.width, 
-            (window.rect.height // 2 - Paddle.height // 2) + 1)
+            (window.rect.height // 2 - Paddle.height // 2))
     }
 
     # Initialize ball
     ball = Ball()
+
+    # Initialize scoreboard
+    scoreboard = Scoreboard()
 
     # Initialize win-lose variables
     time_of_round_end = None
