@@ -24,7 +24,19 @@ def redraw_game():
     # Draw ball
     ball.draw(display)
 
-    # Blit to screen ---------------------------------------------- #
+    # Blit to window ---------------------------------------------- #
+    resized_display = pygame.transform.scale(display, win_size)
+    win.blit(resized_display, (0, 0))
+
+    pygame.display.update()
+
+
+def redraw_menu():
+    # Draw background
+    display.fill(window.white)
+    pygame.draw.rect(display, window.black, window.playable_rect)
+
+    # Blit to window ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)
     win.blit(resized_display, (0, 0))
 
@@ -103,6 +115,22 @@ def game_loop():
     sys.exit()
 
 
+def menu_loop():
+    run = True
+    while run:
+        # Event loop
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+
+        # Update display
+        redraw_menu()
+        clock.tick(window.framerate)
+        
+    pygame.quit()
+    sys.exit()
+
+
 if __name__ == "__main__":
     pygame.init()
 
@@ -135,4 +163,4 @@ if __name__ == "__main__":
     round_finished = False
 
     # Execute
-    game_loop()
+    menu_loop()

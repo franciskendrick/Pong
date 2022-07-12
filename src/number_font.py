@@ -54,5 +54,5 @@ class NumberFont:
             # Add to offset the width of resized character and spacing
             x_offset += resized_character.get_width() + self.character_spacing
         
-        # Blit to screen
+        # Blit to display
         display.blit(display_handle, (0, 0))
