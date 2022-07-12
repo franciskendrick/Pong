@@ -1,1 +1,2 @@
-from .font_to_dict import clip_font_to_dict
+from .font import NumberFont
+from .font import clip_font_to_dict

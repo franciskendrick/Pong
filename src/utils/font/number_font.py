@@ -1,4 +1,4 @@
-from utils import clip_font_to_dict
+from .font_to_dict import clip_font_to_dict
 import pygame
 import os
 
@@ -6,7 +6,8 @@ pygame.init()
 resources_path = os.path.abspath(
     os.path.join(
         os.path.dirname(__file__),
-        "..", "resources"
+        "..", "..", "..",
+        "resources", "font"
     )
 )
 
@@ -22,6 +23,7 @@ class NumberFont:
     character_spacing = 1
 
     def __init__(self):
+        print(f"{resources_path}/number_font.png")
         # Get font spriteset
         font_set = pygame.image.load(
             f"{resources_path}/number_font.png")

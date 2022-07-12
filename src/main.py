@@ -1,7 +1,7 @@
 from windows import window
-from scoreboard import Scoreboard
-from paddle import Paddle
-from ball import Ball
+from windows.game import Scoreboard
+from entities import Paddle
+from entities import Ball
 import pygame
 import time
 import sys
@@ -163,4 +163,4 @@ if __name__ == "__main__":
     round_finished = False
 
     # Execute
-    menu_loop()
+    game_loop()

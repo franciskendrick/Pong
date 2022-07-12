@@ -1,4 +1,4 @@
-from number_font import NumberFont
+from utils import NumberFont
 from windows import window
 import pygame
 
