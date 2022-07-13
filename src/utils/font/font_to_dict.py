@@ -1,14 +1,4 @@
-import pygame
-
-pygame.init()
-
-
-def clip(set, pos, size):
-    clip_rect = pygame.Rect(pos, size)
-    set.set_clip(clip_rect)
-    img = set.subsurface(set.get_clip())
-
-    return img
+from utils.spriteset_clipping import clip
 
 
 def clip_font_to_dict(font_set, order, separator_color=(255, 0, 0, 255)):
@@ -20,7 +10,7 @@ def clip_font_to_dict(font_set, order, separator_color=(255, 0, 0, 255)):
     for x in range(font_set.get_width()):
         pixel = font_set.get_at((x, 0))
 
-        # A separator has found
+        # A separator has been found
         if pixel == separator_color:
             # Get letter image
             img = clip(
