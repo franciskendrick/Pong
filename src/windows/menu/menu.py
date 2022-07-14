@@ -9,10 +9,18 @@ class Menu:
     def __init__(self):
         wd, ht = window.rect.size
         self.display = pygame.Surface(
-            (wd // 2, ht // 2), pygame.SRCALPHA)
+            (wd // 4, ht // 4), pygame.SRCALPHA)
 
         self.title = Title()
     
     def draw(self, display):
-        pass
+        # Fill menu's display with a transparent background
+        self.display.fill((0, 0, 0, 0))
 
+        # Draw menu window on menu's display
+        self.title.draw(self.display)
+
+        # Blit menu's display to original display
+        resized_menu_display = pygame.transform.scale(
+            self.display, display.get_size())
+        display.blit(resized_menu_display, (0, 0))

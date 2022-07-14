@@ -1,5 +1,6 @@
 from windows import window
 from windows.game import Scoreboard
+from windows.menu import Menu
 from entities import Paddle
 from entities import Ball
 import pygame
@@ -35,6 +36,9 @@ def redraw_menu():
     # Draw background
     display.fill(window.white)
     pygame.draw.rect(display, window.black, window.playable_rect)
+
+    # Draw menu
+    menu.draw(display)
 
     # Blit to window ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)
@@ -155,6 +159,9 @@ if __name__ == "__main__":
     # Initialize ball
     ball = Ball()
 
+    # Initialize windows
+    menu = Menu()
+
     # Initialize scoreboard
     scoreboard = Scoreboard()
 
@@ -163,4 +170,4 @@ if __name__ == "__main__":
     round_finished = False
 
     # Execute
-    game_loop()
+    menu_loop()
