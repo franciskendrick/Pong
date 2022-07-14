@@ -1,4 +1,4 @@
-from utils.spriteset_clipping import clip
+from utils.image import clip
 
 
 def clip_font_to_dict(font_set, order, separator_color=(255, 0, 0, 255)):
@@ -6,7 +6,7 @@ def clip_font_to_dict(font_set, order, separator_color=(255, 0, 0, 255)):
     character_wd = 0
     idx = 0
 
-    # Loop over every top pixel in the given fontset
+    # Loop over every top pixel in the gsiven fontset
     for x in range(font_set.get_width()):
         pixel = font_set.get_at((x, 0))
 
