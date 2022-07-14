@@ -63,6 +63,7 @@ def game_loop():
         }
     }
 
+    # Loop
     run = True
     while run:
         # Event loop
@@ -121,6 +122,13 @@ def game_loop():
 
 
 def menu_loop():
+    btn_switchcase = {
+        "play": [game_loop],
+        "options": [],  # !!!
+        "quit": []
+    }
+
+    # Loop
     run = True
     while run:
         # Event loop
@@ -128,6 +136,17 @@ def menu_loop():
             # Quit Detection
             if event.type == pygame.QUIT:
                 run = False
+
+            # Mouse Buttons Down Detection
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been clicked
+                btn_pressed = menu.buttons.button_down_detection()
+                if btn_pressed != None:  # a button has been pressed
+                    if btn_pressed == "quit":  # the button pressed is the QUIT button
+                        run = False
+                    else:  # the button pressed is NOT the QUIT button
+                        for function in btn_switchcase[btn_pressed]:
+                            function()
+
 
             # Menu Button Over Detection
             if event.type == pygame.MOUSEMOTION:

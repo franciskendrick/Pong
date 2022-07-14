@@ -23,7 +23,6 @@ class NumberFont:
     character_spacing = 1
 
     def __init__(self):
-        print(f"{resources_path}/number_font.png")
         # Get font spriteset
         font_set = pygame.image.load(
             f"{resources_path}/number_font.png")
