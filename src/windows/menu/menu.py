@@ -1,5 +1,6 @@
 from windows import window
 from .title import Title
+from .buttons import Buttons
 import pygame
 
 pygame.init()
@@ -12,6 +13,7 @@ class Menu:
             (wd // 4, ht // 4), pygame.SRCALPHA)
 
         self.title = Title()
+        self.buttons = Buttons()
     
     def draw(self, display):
         # Fill menu's display with a transparent background
@@ -19,6 +21,7 @@ class Menu:
 
         # Draw menu window on menu's display
         self.title.draw(self.display)
+        self.buttons.draw(self.display)
 
         # Blit menu's display to original display
         resized_menu_display = pygame.transform.scale(
