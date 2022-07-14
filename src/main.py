@@ -67,6 +67,7 @@ def game_loop():
     while run:
         # Event loop
         for event in pygame.event.get():
+            # Quit Detection
             if event.type == pygame.QUIT:
                 run = False
         
@@ -124,8 +125,13 @@ def menu_loop():
     while run:
         # Event loop
         for event in pygame.event.get():
+            # Quit Detection
             if event.type == pygame.QUIT:
                 run = False
+
+            # Menu Button Over Detection
+            if event.type == pygame.MOUSEMOTION:
+                menu.buttons.button_over_detection()
 
         # Update display
         redraw_menu()

@@ -8,12 +8,14 @@ pygame.init()
 
 class Menu:
     def __init__(self):
+        display_size_divider = 4
         wd, ht = window.rect.size
         self.display = pygame.Surface(
-            (wd // 4, ht // 4), pygame.SRCALPHA)
+            (wd // display_size_divider, ht // display_size_divider), 
+            pygame.SRCALPHA)
 
         self.title = Title()
-        self.buttons = Buttons()
+        self.buttons = Buttons(display_size_divider)
     
     def draw(self, display):
         # Fill menu's display with a transparent background

@@ -20,11 +20,12 @@ with open(f"{resources_path}/menu.json") as json_file:
 
 class Buttons:
     # Initialize -------------------------------------------------- #
-    def __init__(self):
+    def __init__(self, display_size_divider):
         spriteset = pygame.image.load(
             f"{resources_path}/buttons.png")
         order = ["play", "options", "quit"]
         images = clip_set_to_list_on_yaxis(spriteset)
+        enlarge = display_size_divider * window.enlarge
 
         # Pallete
         hover_palette = {
@@ -40,8 +41,8 @@ class Buttons:
                 menu_data["buttons_positions"][name],
                 img.get_rect().size)
             hitbox = pygame.Rect(
-                rect.x * window.enlarge, rect.y * window.enlarge,
-                rect.width * window.enlarge, rect.height * window.enlarge)
+                rect.x * enlarge, rect.y * enlarge,
+                rect.width * enlarge, rect.height * enlarge)
 
             # Append to buttons
             button = [
@@ -66,4 +67,8 @@ class Buttons:
         pass
 
     def button_over_detection(self):
-        pass
+        for button in self.buttons.values():
+            *_, hitbox = button
+
+            mouse_pos = pygame.mouse.get_pos()
+            button[0] = True if hitbox.collidepoint(mouse_pos) else False
