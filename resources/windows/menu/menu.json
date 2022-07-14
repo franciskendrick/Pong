@@ -1,3 +1,8 @@
 {
-    "title_position": [40, 12]
+    "title_position": [41, 10],
+    "buttons_positions": {
+        "play": [67, 42],
+        "options": [59, 55],
+        "quit": [67, 68]
+    }
 }

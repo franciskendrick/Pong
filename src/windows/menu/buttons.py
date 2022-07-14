@@ -1,3 +1,5 @@
+from utils.image import clip_set_to_list_on_yaxis, palette_swap
+from windows import window
 import pygame
 import json
 import os
@@ -19,11 +21,45 @@ with open(f"{resources_path}/menu.json") as json_file:
 class Buttons:
     # Initialize -------------------------------------------------- #
     def __init__(self):
-        pass
+        spriteset = pygame.image.load(
+            f"{resources_path}/buttons.png")
+        order = ["play", "options", "quit"]
+        images = clip_set_to_list_on_yaxis(spriteset)
 
+        # Pallete
+        hover_palette = {
+            (0, 0, 0): (64, 64, 64),
+            (255, 255, 255): (128, 128, 128)}
+
+        # Buttons
+        self.buttons = {}
+        for name, img in zip(order, images):
+            # Initialize button
+            hover_img = palette_swap(img.convert(), hover_palette)
+            rect = pygame.Rect(
+                menu_data["buttons_positions"][name],
+                img.get_rect().size)
+            hitbox = pygame.Rect(
+                rect.x * window.enlarge, rect.y * window.enlarge,
+                rect.width * window.enlarge, rect.height * window.enlarge)
+
+            # Append to buttons
+            button = [
+                False,  # mouse is over 
+                img,  # original image
+                hover_img,  # hover image
+                rect,  # image's rectangle
+                hitbox  # hitbox
+            ]
+            self.buttons[name] = button
+            
     # Draw -------------------------------------------------------- #
     def draw(self, display):
-        pass
+        for button in self.buttons.values():
+            mouse_is_over, orig_img, hover_img, rect, _ = button
+            img = hover_img if mouse_is_over else orig_img
+
+            display.blit(img, rect)
 
     # Functions --------------------------------------------------- #
     def button_down_detection(self):
