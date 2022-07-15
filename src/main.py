@@ -47,6 +47,14 @@ def redraw_menu():
     pygame.display.update()
 
 
+def redraw_pause():
+    # Blit to window ---------------------------------------------- #
+    resized_display = pygame.transform.scale(display, win_size)
+    win.blit(resized_display, (0, 0))
+
+    pygame.display.update()
+
+
 # Loop
 def game_loop():
     global time_of_round_end, round_finished
@@ -156,6 +164,24 @@ def menu_loop():
         redraw_menu()
         clock.tick(window.framerate)
         
+    pygame.quit()
+    sys.exit()
+
+
+def pause_loop():
+    # Loop
+    run = True
+    while run:
+        # Event loop
+        for event in pygame.event.get():
+            # Quit detection
+            if event.type == pygame.QUIT:
+                run = False
+
+        # Update display
+        redraw_pause()
+        clock.tick(window.framerate)
+
     pygame.quit()
     sys.exit()
 
