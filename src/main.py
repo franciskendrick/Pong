@@ -49,6 +49,24 @@ def redraw_menu():
 
 
 def redraw_pause():
+    # Draw background
+    display.fill(window.white)
+    pygame.draw.rect(display, window.black, window.playable_rect)
+    pygame.draw.rect(display, window.white, window.center_line)
+    
+    # Draw scoreboard
+    scoreboard.draw(display)
+
+    # Draw paddles
+    for paddle in paddles.values():
+        paddle.draw(display)
+
+    # Draw ball
+    ball.draw(display)
+
+    # Draw pause
+    pause.draw(display)
+
     # Blit to window ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)
     win.blit(resized_display, (0, 0))
@@ -223,4 +241,4 @@ if __name__ == "__main__":
     round_finished = False
 
     # Execute
-    menu_loop()
+    pause_loop()

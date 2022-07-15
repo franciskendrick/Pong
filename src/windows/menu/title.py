@@ -23,7 +23,7 @@ class Title:
             f"{resources_path}/title_animation.png")
         self.idx = 0
 
-        # Frames
+        # Get title animation's frames
         self.frames = []
         for img in clip_set_to_list_on_yaxis(animation_set):
             # Resize image

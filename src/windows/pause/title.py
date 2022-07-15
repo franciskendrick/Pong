@@ -1,4 +1,6 @@
+from utils.image import clip_set_to_list_on_yaxis
 import pygame
+import json
 import os
 
 pygame.init()
@@ -10,10 +12,44 @@ resources_path = os.path.abspath(
         )
     )
 
+# Json
+with open(f"{resources_path}/pause.json") as json_file:
+    pause_data = json.load(json_file)
+
 
 class Title:
     def __init__(self):
-        pass
+        animation_set = pygame.image.load(
+            f"{resources_path}/title_animation.png")
+        self.idx = 0
+
+        # Get title animation's frames
+        self.frames = []
+        for img in clip_set_to_list_on_yaxis(animation_set):
+            # Resize image
+            wd, ht = img.get_size()
+            size = (wd * 2, ht * 2)
+            img = pygame.transform.scale(img, size)
+
+            # Initialize rectangle
+            rect = pygame.Rect(
+                pause_data["title_position"], img.get_size())
+
+            # Append to frames
+            frame = [
+                img,  # original image
+                rect  # image's rectangle
+            ]
+            self.frames.append(frame)
 
     def draw(self, display):
-        pass
+        # Reset
+        if self.idx >= len(self.frames) * 10:
+            self.idx = 0
+
+        # Draw
+        img, rect = self.frames[self.idx // 10]
+        display.blit(img, rect)
+
+        # Update
+        self.idx += 1
