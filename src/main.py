@@ -1,6 +1,7 @@
 from windows import window
 from windows.game import Scoreboard
 from windows.menu import Menu
+from windows.pause import Pause
 from entities import Paddle
 from entities import Ball
 import pygame
@@ -76,7 +77,7 @@ def game_loop():
     while run:
         # Event loop
         for event in pygame.event.get():
-            # Quit Detection
+            # Quit detection
             if event.type == pygame.QUIT:
                 run = False
         
@@ -141,11 +142,11 @@ def menu_loop():
     while run:
         # Event loop
         for event in pygame.event.get():
-            # Quit Detection
+            # Quit detection
             if event.type == pygame.QUIT:
                 run = False
 
-            # Mouse Buttons Down Detection
+            # Mouse buttons' down detection
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been clicked
                 btn_pressed = menu.buttons.button_down_detection()
                 if btn_pressed != None:  # a button has been pressed
@@ -156,7 +157,7 @@ def menu_loop():
                             function()
 
 
-            # Menu Button Over Detection
+            # Menu Buttons' over detection
             if event.type == pygame.MOUSEMOTION:
                 menu.buttons.button_over_detection()
 
@@ -212,6 +213,7 @@ if __name__ == "__main__":
 
     # Initialize windows
     menu = Menu()
+    pause = Pause()
 
     # Initialize scoreboard
     scoreboard = Scoreboard()
