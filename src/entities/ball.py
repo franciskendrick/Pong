@@ -80,9 +80,20 @@ class Ball:
                 self.y_vel = -1 * new_y_vel
 
     # Functions --------------------------------------------------- #
-    def reset(self):
+    def round_reset(self):
+        # Rectangle
         self.rect.x = self.original_x
         self.rect.y = self.original_y
 
+        # Velocities
         self.x_vel *= -1
+        self.y_vel = 0
+
+    def full_reset(self):
+        # Rectangle
+        self.rect.x = self.original_x
+        self.rect.y = self.original_y
+
+        # Velocities
+        self.x_vel = self.max_vel
         self.y_vel = 0

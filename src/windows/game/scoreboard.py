@@ -17,6 +17,7 @@ class Scoreboard(NumberFont):
             window.playable_rect.y + 8)
     }
 
+    # Initialize -------------------------------------------------- #
     def __init__(self):
         super().__init__()
 
@@ -25,6 +26,7 @@ class Scoreboard(NumberFont):
             "right": 0
         }
 
+    # Draw -------------------------------------------------------- #
     def draw(self, display):
         # Left's score
         self.render_font(
@@ -39,3 +41,8 @@ class Scoreboard(NumberFont):
             str(self.scores["right"]),
             self.positions["right"],
             enlarge=4)
+
+    # Functions --------------------------------------------------- #
+    def full_reset(self):
+        for key in self.scores.keys():
+            self.scores[key] = 0

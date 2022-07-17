@@ -9,7 +9,17 @@ import time
 import sys
 
 
-# Redraw
+# Functions ------------------------------------------------------- #
+def game_reset():
+    global paddles, ball, scoreboard
+
+    for (side, paddle) in paddles.items():
+        paddle.rect.x, paddle.rect.y = paddle_positions[side]
+    ball.full_reset()
+    scoreboard.full_reset()
+
+
+# Redraw ---------------------------------------------------------- #
 def redraw_game():
     # Draw background
     display.fill(window.white)
@@ -74,7 +84,7 @@ def redraw_pause():
     pygame.display.update()
 
 
-# Loop
+# Loop ------------------------------------------------------------ #
 def game_loop():
     global time_of_round_end, round_finished
 
@@ -98,6 +108,12 @@ def game_loop():
             # Quit detection
             if event.type == pygame.QUIT:
                 run = False
+
+            # Keydown detection
+            if event.type == pygame.KEYDOWN:
+                # Pause
+                if event.key == pygame.K_ESCAPE:
+                    pause_loop()
         
         # Update paddles
         for (side, paddle) in paddles.items():
@@ -137,7 +153,7 @@ def game_loop():
             # Reset ball 1.5 seconds after round winner has been declared
             dt = time.perf_counter() - time_of_round_end
             if dt * 1000 >= 1500:
-                ball.reset()
+                ball.round_reset()
                 round_finished = False
 
         # Update display
@@ -187,6 +203,11 @@ def menu_loop():
 
 
 def pause_loop():
+    btn_switchcase = {
+        "play": [game_loop],
+        "menu": [game_reset, menu_loop]
+    }
+
     # Loop
     run = True
     while run:
@@ -195,6 +216,13 @@ def pause_loop():
             # Quit detection
             if event.type == pygame.QUIT:
                 run = False
+
+            # Mouse buttons' down detection
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been clicked
+                btn_pressed = pause.buttons.button_down_detection()
+                if btn_pressed != None:
+                    for function in btn_switchcase[btn_pressed]:
+                        function()
 
             # Mouse buttons' over detection
             if event.type == pygame.MOUSEMOTION:
@@ -221,12 +249,16 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
 
     # Initialize paddle
+    paddle_positions = {
+        "left": [10, (window.rect.height // 2 - Paddle.height // 2)],
+        "right": [
+            (window.rect.width - 10 - Paddle.width), 
+            (window.rect.height // 2 - Paddle.height // 2)
+        ]
+    }
     paddles = {
-        "left": Paddle(
-            10, (window.rect.height // 2 - Paddle.height // 2)),
-        "right": Paddle(
-            window.rect.width - 10 - Paddle.width, 
-            (window.rect.height // 2 - Paddle.height // 2))
+        "left": Paddle(*paddle_positions["left"]),
+        "right": Paddle(*paddle_positions["right"])
     }
 
     # Initialize ball
@@ -244,4 +276,4 @@ if __name__ == "__main__":
     round_finished = False
 
     # Execute
-    pause_loop()
+    menu_loop()
