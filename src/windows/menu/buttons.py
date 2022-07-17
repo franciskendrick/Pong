@@ -46,7 +46,7 @@ class Buttons:
 
             # Append to buttons
             button = [
-                False,  # mouse is over 
+                False,  # if mouse is over 
                 img,  # original image
                 hover_img,  # hover image
                 rect,  # image's rectangle

@@ -1,3 +1,7 @@
 {
-    "title_position": [14, 157]
+    "title_position": [14, 157],
+    "buttons_positions": {
+        "play": [88, 157],
+        "menu": [106, 157]
+    }
 }
