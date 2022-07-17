@@ -174,7 +174,6 @@ def menu_loop():
                         for function in btn_switchcase[btn_pressed]:
                             function()
 
-
             # Menu Buttons' over detection
             if event.type == pygame.MOUSEMOTION:
                 menu.buttons.button_over_detection()
@@ -196,6 +195,10 @@ def pause_loop():
             # Quit detection
             if event.type == pygame.QUIT:
                 run = False
+
+            # Mouse buttons' over detection
+            if event.type == pygame.MOUSEMOTION:
+                pause.buttons.button_over_detection()
 
         # Update display
         redraw_pause()
