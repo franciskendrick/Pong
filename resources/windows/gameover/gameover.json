@@ -1,3 +1,6 @@
 {
-    
+    "title_positions": {
+        "left": [16, 12],
+        "right": [96, 12]
+    }
 }

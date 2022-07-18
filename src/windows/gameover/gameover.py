@@ -7,9 +7,11 @@ pygame.init()
 
 class GameOver:
     def __init__(self):
+        display_size_divider = 4
         wd, ht = window.rect.size
         self.display = pygame.Surface(
-            (wd, ht), pygame.SRCALPHA)
+            (wd // display_size_divider, ht // display_size_divider), 
+            pygame.SRCALPHA)
         
         self.title = Title()
 

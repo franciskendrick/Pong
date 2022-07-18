@@ -267,6 +267,9 @@ def pause_loop():
 
 
 def gameover_loop():
+    # !!!
+    gameover.title.init_rect("left")
+
     # Loop
     run = True
     while run:
