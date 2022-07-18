@@ -1,5 +1,6 @@
 from windows import window
 from .title import Title
+from .buttons import Buttons
 import pygame
 
 pygame.init()
@@ -14,6 +15,7 @@ class GameOver:
             pygame.SRCALPHA)
         
         self.title = Title()
+        self.buttons = Buttons(display_size_divider)
 
     def draw(self, display):
         # Fill gameover's display with a transparent background
@@ -21,6 +23,7 @@ class GameOver:
 
         # Draw gameover window on gameover's display
         self.title.draw(self.display)
+        self.buttons.draw(self.display)
 
         # Blit gameover's display to original display
         resized_menu_display = pygame.transform.scale(
