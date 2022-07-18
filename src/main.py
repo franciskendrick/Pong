@@ -2,6 +2,7 @@ from windows import window
 from windows.game import Scoreboard
 from windows.menu import Menu
 from windows.pause import Pause
+from windows.gameover import GameOver
 from entities import Paddle
 from entities import Ball
 import pygame
@@ -228,6 +229,12 @@ def pause_loop():
             if event.type == pygame.MOUSEMOTION:
                 pause.buttons.button_over_detection()
 
+            # Keydown detection
+            if event.type == pygame.KEYDOWN:
+                # Pause
+                if event.key == pygame.K_ESCAPE:
+                    game_loop()
+
         # Update display
         redraw_pause()
         clock.tick(window.framerate)
@@ -267,6 +274,7 @@ if __name__ == "__main__":
     # Initialize windows
     menu = Menu()
     pause = Pause()
+    gameover = GameOver()
 
     # Initialize scoreboard
     scoreboard = Scoreboard()
