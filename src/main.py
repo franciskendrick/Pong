@@ -268,7 +268,9 @@ def pause_loop():
 
 def gameover_loop():
     # !!!
-    gameover.title.init_rect("left")
+    won_side = "right"
+    gameover.title.init_rect(won_side)
+    gameover.buttons.init_rect(won_side, 4)
 
     # Loop
     run = True
