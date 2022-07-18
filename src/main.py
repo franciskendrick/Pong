@@ -85,6 +85,29 @@ def redraw_pause():
     pygame.display.update()
 
 
+def redraw_gameover():
+    # Draw background
+    display.fill(window.white)
+    pygame.draw.rect(display, window.black, window.playable_rect)
+    pygame.draw.rect(display, window.white, window.center_line)
+
+    # Draw scoreboard
+    scoreboard.draw(display)
+
+    # Draw paddles
+    for paddle in paddles.values():
+        paddle.draw(display)
+
+    # Draw gameover
+    gameover.draw(display)
+
+    # Blit to window ---------------------------------------------- #
+    resized_display = pygame.transform.scale(display, win_size)
+    win.blit(resized_display, (0, 0))
+
+    pygame.display.update()
+
+
 # Loop ------------------------------------------------------------ #
 def game_loop():
     global time_of_round_end, round_finished
@@ -243,6 +266,24 @@ def pause_loop():
     sys.exit()
 
 
+def gameover_loop():
+    # Loop
+    run = True
+    while run:
+        # Event loop
+        for event in pygame.event.get():
+            # Quit detection
+            if event.type == pygame.QUIT:
+                run = False
+
+        # Update display
+        redraw_gameover()
+        clock.tick(window.framerate)
+    
+    pygame.quit()
+    sys.exit()
+
+
 if __name__ == "__main__":
     pygame.init()
 
@@ -284,4 +325,4 @@ if __name__ == "__main__":
     round_finished = False
 
     # Execute
-    menu_loop()
+    gameover_loop()
