@@ -1,8 +1,4 @@
-from windows import window
-from windows.game import Game
-from windows.menu import Menu
-from windows.pause import Pause
-from windows.gameover import GameOver
+from windows import window, Game, Menu, Pause, GameOver
 from entities import Paddle
 from entities import Ball
 import pygame
