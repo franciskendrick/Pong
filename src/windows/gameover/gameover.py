@@ -26,6 +26,6 @@ class GameOver:
         self.buttons.draw(self.display)
 
         # Blit gameover's display to original display
-        resized_menu_display = pygame.transform.scale(
+        resized_gameover_display = pygame.transform.scale(
             self.display, display.get_size())
-        display.blit(resized_menu_display, (0, 0))
+        display.blit(resized_gameover_display, (0, 0))

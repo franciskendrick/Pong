@@ -1,5 +1,5 @@
 from windows import window
-from windows.game import Scoreboard
+from windows.game import Game
 from windows.menu import Menu
 from windows.pause import Pause
 from windows.gameover import GameOver
@@ -12,12 +12,12 @@ import sys
 
 # Functions ------------------------------------------------------- #
 def game_reset():
-    global paddles, ball, scoreboard
+    global paddles, ball
 
     for (side, paddle) in paddles.items():
         paddle.rect.x, paddle.rect.y = paddle_positions[side]
     ball.full_reset()
-    scoreboard.full_reset()
+    game.scoreboard.full_reset()
 
 
 # Redraw ---------------------------------------------------------- #
@@ -27,8 +27,8 @@ def redraw_game():
     pygame.draw.rect(display, window.black, window.playable_rect)
     pygame.draw.rect(display, window.white, window.center_line)
     
-    # Draw scoreboard
-    scoreboard.draw(display)
+    # Draw game
+    game.draw(display)
 
     # Draw paddles
     for paddle in paddles.values():
@@ -65,8 +65,8 @@ def redraw_pause():
     pygame.draw.rect(display, window.black, window.playable_rect)
     pygame.draw.rect(display, window.white, window.center_line)
     
-    # Draw scoreboard
-    scoreboard.draw(display)
+    # Draw game
+    game.scoreboard.draw(display)
 
     # Draw paddles
     for paddle in paddles.values():
@@ -91,8 +91,8 @@ def redraw_gameover():
     pygame.draw.rect(display, window.black, window.playable_rect)
     pygame.draw.rect(display, window.white, window.center_line)
 
-    # Draw scoreboard
-    scoreboard.draw(display)
+    # Draw game
+    game.scoreboard.draw(display)
 
     # Draw paddles
     for paddle in paddles.values():
@@ -110,8 +110,6 @@ def redraw_gameover():
 
 # Loop ------------------------------------------------------------ #
 def game_loop():
-    global time_of_round_end, round_finished
-
     # Paddle's button keys
     paddle_buttonkeys = {
         "left": {
@@ -144,41 +142,41 @@ def game_loop():
             paddle.movement(paddle_buttonkeys[side])
 
         # Update ball
-        if not round_finished:
+        if not game.round_finished:
             # Update ball
             ball.update(paddles)
 
             # Check for round winner
             if ball.rect.centerx <= window.playable_rect.left:  # left player lost
                 # Update time of round end variable
-                time_of_round_end = time.perf_counter()
+                game.time_of_round_end = time.perf_counter()
 
                 # Update ball's position so it would be out of the screen
                 ball.rect.right = window.playable_rect.left
 
                 # Update winner's (right's) score
-                scoreboard.scores["right"] += 1
+                game.scoreboard.scores["right"] += 1
 
                 # Update round finished variable to true
-                round_finished = True
+                game.round_finished = True
             elif ball.rect.centerx >= window.playable_rect.right:  # right player lost
                 # Update time of round end variable
-                time_of_round_end = time.perf_counter()
+                game.time_of_round_end = time.perf_counter()
 
                 # Update ball's position so it would be out of the screen
                 ball.rect.left = window.playable_rect.right
 
                 # Update winner's (left's) score
-                scoreboard.scores["left"] += 1
+                game.scoreboard.scores["left"] += 1
 
                 # Update round finished variable to true
-                round_finished = True
+                game.round_finished = True
         else:
             # Reset ball 1.5 seconds after round winner has been declared
-            dt = time.perf_counter() - time_of_round_end
+            dt = time.perf_counter() - game.time_of_round_end
             if dt * 1000 >= 1500:
                 ball.round_reset()
-                round_finished = False
+                game.round_finished = False
 
         # Update display
         redraw_game()
@@ -336,16 +334,10 @@ if __name__ == "__main__":
     ball = Ball()
 
     # Initialize windows
+    game = Game()
     menu = Menu()
     pause = Pause()
     gameover = GameOver()
-
-    # Initialize scoreboard
-    scoreboard = Scoreboard()
-
-    # Initialize win-lose variables
-    time_of_round_end = None
-    round_finished = False
 
     # Execute
     game_loop()

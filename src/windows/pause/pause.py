@@ -26,6 +26,6 @@ class Pause:
         self.buttons.draw(self.display)
 
         # Blit pause's display to original display
-        resized_menu_display = pygame.transform.scale(
+        resized_pause_display = pygame.transform.scale(
             self.display, display.get_size())
-        display.blit(resized_menu_display, (0, 0))
+        display.blit(resized_pause_display, (0, 0))
