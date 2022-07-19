@@ -31,16 +31,12 @@ class Title:
             size = (wd * 2, ht * 2)
             img = pygame.transform.scale(img, size)
 
-            # Initialize rectangle
-            rect = pygame.Rect(
-                pause_data["title_position"], img.get_size())
-
             # Append to frames
-            frame = [
-                img,  # original image
-                rect  # image's rectangle
-            ]
-            self.frames.append(frame)
+            self.frames.append(img)
+
+        # Initialize rectangle
+        self.rect = pygame.Rect(
+            pause_data["title_position"], img.get_size())
 
     def draw(self, display):
         # Reset
@@ -49,7 +45,7 @@ class Title:
 
         # Draw
         img, rect = self.frames[self.idx // 10]
-        display.blit(img, rect)
+        display.blit(img, self.rect)
 
         # Update
         self.idx += 1
