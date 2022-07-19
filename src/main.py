@@ -206,6 +206,7 @@ def menu_loop():
                         run = False
                     else:  # the button pressed is NOT the QUIT button
                         for function in btn_switchcase[btn_pressed]:
+                            menu.buttons.reset_overdetection()
                             function()
 
             # Menu buttons' over detection
@@ -240,6 +241,7 @@ def pause_loop():
                 btn_pressed = pause.buttons.button_down_detection()
                 if btn_pressed != None:
                     for function in btn_switchcase[btn_pressed]:
+                        pause.buttons.reset_overdetection()
                         function()
 
             # Mouse buttons' over detection
@@ -288,6 +290,7 @@ def gameover_loop():
                 btn_pressed = gameover.buttons.button_down_detection()
                 if btn_pressed != None:  # a button has been pressed
                     for function in btn_switchcase[btn_pressed]:
+                        gameover.buttons.reset_overdetection()
                         function()
 
             # Mouse buttons' over detection

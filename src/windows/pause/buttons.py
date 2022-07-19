@@ -62,7 +62,7 @@ class Buttons:
 
             display.blit(img, rect)
 
-    # Functions --------------------------------------------------- #
+    # Action detection  --------------------------------------------- #
     def button_down_detection(self):
         for (name, button) in self.buttons.items():
             *_, hitbox = button
@@ -77,3 +77,8 @@ class Buttons:
 
             mouse_pos = pygame.mouse.get_pos()
             button[0] = True if hitbox.collidepoint(mouse_pos) else False
+
+    # Functions --------------------------------------------------- #
+    def reset_overdetection(self):
+        for button in self.buttons.values():
+            button[0] = False
