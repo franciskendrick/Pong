@@ -70,7 +70,12 @@ class Buttons:
 
     # Functions --------------------------------------------------- #
     def button_down_detection(self):
-        pass
+        for (name, button) in self.buttons.items():
+            *_, hitbox = button
+
+            mouse_pos = pygame.mouse.get_pos()
+            if hitbox.collidepoint(mouse_pos):
+                return name
 
     def button_over_detection(self):
         for button in self.buttons.values():

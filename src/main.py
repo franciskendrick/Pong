@@ -272,6 +272,13 @@ def gameover_loop():
     gameover.title.init_rect(won_side)
     gameover.buttons.init_rect(won_side, 4)
 
+    # Initialize button switchcase
+    btn_switchcase = {
+        "play": [game_reset, game_loop],
+        "options": [],  # !!!
+        "menu": [game_reset, menu_loop]
+    }
+
     # Loop
     run = True
     while run:
@@ -280,6 +287,13 @@ def gameover_loop():
             # Quit detection
             if event.type == pygame.QUIT:
                 run = False
+
+            # Mouse buttons' down detection
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                btn_pressed = gameover.buttons.button_down_detection()
+                if btn_pressed != None:  # a button has been pressed
+                    for function in btn_switchcase[btn_pressed]:
+                        function()
 
             # Mouse buttons' over detection
             if event.type == pygame.MOUSEMOTION:
