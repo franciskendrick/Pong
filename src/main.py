@@ -348,4 +348,4 @@ if __name__ == "__main__":
     round_finished = False
 
     # Execute
-    gameover_loop()
+    game_loop()
