@@ -4,27 +4,31 @@ pygame.init()
 
 
 class Window:
-    def __init__(self):
-        # Window
-        self.rect = pygame.Rect(0, 0, 640, 360)
-        self.enlarge = 2
-        # self.enlarge = max(
-        #     pygame.display.Info().current_w / self.rect.width,
-        #     pygame.display.Info().current_h / self.rect.height)
+    # Window
+    rect = pygame.Rect(0, 0, 640, 360)
+    enlarge = 2
+    # enlarge = max(
+    #     pygame.display.Info().current_w / rect.width,
+    #     pygame.display.Info().current_h / rect.height)
 
-        # Court
-        self.playable_rect = pygame.Rect(
-            0, 10, self.rect.width, self.rect.height-20)
-        self.center_line = pygame.Rect(
-            self.rect.centerx - 10 // 2, 0,
-            10, self.rect.height)
+    # Court
+    playable_rect = pygame.Rect(
+        0, 10, rect.width, rect.height-20)
+    center_line = pygame.Rect(
+        rect.centerx - 10 // 2, 0,
+        10, rect.height)
 
-        # Colors
-        self.black = (0, 0, 0)
-        self.white = (255, 255, 255)
+    # Colors
+    black = (0, 0, 0)
+    white = (255, 255, 255)
 
-        # Framerate
-        self.framerate = 60
+    framerate = 60
+
+    def draw_playablesurface(self, display):
+        pygame.draw.rect(display, self.black, self.playable_rect)
+
+    def draw_centerline(self, display):
+        pygame.draw.rect(display, self.white, self.center_line)
 
 
 window = Window()

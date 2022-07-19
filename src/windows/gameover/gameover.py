@@ -17,7 +17,7 @@ class GameOver:
             pygame.SRCALPHA)
         
         self.title = Title()
-        self.buttons = Buttons(self.display_size_divider)
+        self.buttons = Buttons()
 
     def draw(self, display):
         # Fill gameover's display with a transparent background

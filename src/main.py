@@ -20,8 +20,8 @@ def game_reset():
 def redraw_game():
     # Draw background
     display.fill(window.white)
-    pygame.draw.rect(display, window.black, window.playable_rect)
-    pygame.draw.rect(display, window.white, window.center_line)
+    window.draw_playablesurface(display)
+    window.draw_centerline(display)
     
     # Draw game
     game.draw(display)
@@ -43,7 +43,7 @@ def redraw_game():
 def redraw_menu():
     # Draw background
     display.fill(window.white)
-    pygame.draw.rect(display, window.black, window.playable_rect)
+    window.draw_playablesurface(display)
 
     # Draw menu
     menu.draw(display)
@@ -58,8 +58,8 @@ def redraw_menu():
 def redraw_pause():
     # Draw background
     display.fill(window.white)
-    pygame.draw.rect(display, window.black, window.playable_rect)
-    pygame.draw.rect(display, window.white, window.center_line)
+    window.draw_playablesurface(display)
+    window.draw_centerline(display)
     
     # Draw game
     game.scoreboard.draw(display)
@@ -84,8 +84,8 @@ def redraw_pause():
 def redraw_gameover():
     # Draw background
     display.fill(window.white)
-    pygame.draw.rect(display, window.black, window.playable_rect)
-    pygame.draw.rect(display, window.white, window.center_line)
+    window.draw_playablesurface(display)
+    window.draw_centerline(display)
 
     # Draw game
     game.scoreboard.draw(display)
@@ -337,4 +337,4 @@ if __name__ == "__main__":
     gameover = GameOver()
 
     # Execute
-    game_loop()
+    menu_loop()
