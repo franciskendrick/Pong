@@ -264,7 +264,8 @@ def gameover_loop():
     # !!!
     won_side = "left"
     gameover.title.init_rect(won_side)
-    gameover.buttons.init_rect(won_side, 4)
+    gameover.buttons.init_rect(
+        won_side, GameOver.display_size_divider)
 
     # Initialize button switchcase
     btn_switchcase = {

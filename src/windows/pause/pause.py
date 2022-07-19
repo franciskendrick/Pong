@@ -7,15 +7,17 @@ pygame.init()
 
 
 class Pause:
+    display_size_divider = 2
+
     def __init__(self):
-        display_size_divider = 2
         wd, ht = window.rect.size
         self.display = pygame.Surface(
-            (wd // display_size_divider, ht // display_size_divider), 
+            (wd // self.display_size_divider, 
+            ht // self.display_size_divider), 
             pygame.SRCALPHA)
 
         self.title = Title()
-        self.buttons = Buttons(display_size_divider)
+        self.buttons = Buttons(self.display_size_divider)
 
     def draw(self, display):
         # Fill pause's display with a transparent background

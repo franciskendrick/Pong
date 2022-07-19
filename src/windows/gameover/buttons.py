@@ -20,7 +20,7 @@ with open(f"{resources_path}/gameover.json") as json_file:
 
 class Buttons:
     # Initialize -------------------------------------------------- #
-    def __init__(self, display_size_divider):
+    def __init__(self):
         spriteset = pygame.image.load(
             f"{resources_path}/buttons.png")
         order = ["play", "options", "menu"]
