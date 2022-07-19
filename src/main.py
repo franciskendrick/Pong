@@ -214,7 +214,7 @@ def menu_loop():
                         for function in btn_switchcase[btn_pressed]:
                             function()
 
-            # Menu Buttons' over detection
+            # Menu buttons' over detection
             if event.type == pygame.MOUSEMOTION:
                 menu.buttons.button_over_detection()
 
@@ -268,7 +268,7 @@ def pause_loop():
 
 def gameover_loop():
     # !!!
-    won_side = "right"
+    won_side = "left"
     gameover.title.init_rect(won_side)
     gameover.buttons.init_rect(won_side, 4)
 
@@ -280,6 +280,10 @@ def gameover_loop():
             # Quit detection
             if event.type == pygame.QUIT:
                 run = False
+
+            # Mouse buttons' over detection
+            if event.type == pygame.MOUSEMOTION:
+                gameover.buttons.button_over_detection()
 
         # Update display
         redraw_gameover()
