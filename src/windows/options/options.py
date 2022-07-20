@@ -1,0 +1,28 @@
+from windows import window
+import pygame
+
+pygame.init()
+
+
+class Options:
+    display_size_divider = 1
+
+    def __init__(self):
+        wd, ht = window.rect.size
+        self.display = pygame.Surface(
+            (wd // self.display_size_divider, 
+            ht // self.display_size_divider), 
+            pygame.SRCALPHA)
+
+    def draw(self, display):
+        # Fill options' display with a transparent background
+        self.display.fill((0, 0, 0, 0))
+
+        # Draw options window on options' display
+        self.title.draw(self.display)
+        self.buttons.draw(self.display)
+
+        # Blit options' display to original display
+        resized_menu_display = pygame.transform.scale(
+            self.display, display.get_size())
+        display.blit(resized_menu_display, (0, 0))

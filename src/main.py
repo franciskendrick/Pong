@@ -1,4 +1,4 @@
-from windows import window, Game, Menu, Pause, GameOver
+from windows import window, Game, Menu, Options, Pause, GameOver
 from entities import Paddle
 from entities import Ball
 import pygame
@@ -370,6 +370,7 @@ if __name__ == "__main__":
     menu = Menu()
     pause = Pause()
     gameover = GameOver()
+    options = Options()
 
     # Execute
     options_loop()
