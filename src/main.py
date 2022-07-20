@@ -55,6 +55,20 @@ def redraw_menu():
     pygame.display.update()
 
 
+def redraw_options():
+    # Draw background
+    display.fill(window.white)
+    window.draw_playablesurface(display)
+
+    # Draw options
+    
+    # Blit to window ---------------------------------------------- #
+    resized_display = pygame.transform.scale(display, win_size)
+    win.blit(resized_display, (0, 0))
+
+    pygame.display.update()
+
+
 def redraw_pause():
     # Draw background
     display.fill(window.white)
@@ -221,6 +235,24 @@ def menu_loop():
     sys.exit()
 
 
+def options_loop():
+    # Loop
+    run = True
+    while run:
+        # Event loop
+        for event in pygame.event.get():
+            # Quit detection
+            if event.type == pygame.QUIT:
+                run = False
+
+        # Update display
+        redraw_options() 
+        clock.tick(window.framerate)
+
+    pygame.quit()
+    sys.exit()
+
+
 def pause_loop():
     btn_switchcase = {
         "play": [game_loop],
@@ -340,4 +372,4 @@ if __name__ == "__main__":
     gameover = GameOver()
 
     # Execute
-    menu_loop()
+    options_loop()

@@ -22,8 +22,10 @@ class Window:
     black = (0, 0, 0)
     white = (255, 255, 255)
 
+    # Framerate
     framerate = 60
 
+    # Draw -------------------------------------------------------- #
     def draw_playablesurface(self, display):
         pygame.draw.rect(display, self.black, self.playable_rect)
 
