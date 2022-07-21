@@ -61,6 +61,7 @@ def redraw_options():
     window.draw_playablesurface(display)
 
     # Draw options
+    options.draw(display)
     
     # Blit to window ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)

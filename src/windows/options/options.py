@@ -23,7 +23,6 @@ class Options:
 
         # Draw options window on options' display
         self.title.draw(self.display)
-        self.buttons.draw(self.display)
 
         # Blit options' display to original display
         resized_menu_display = pygame.transform.scale(
