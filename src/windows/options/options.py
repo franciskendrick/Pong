@@ -1,11 +1,12 @@
 from windows import window
+from .title import Title
 import pygame
 
 pygame.init()
 
 
 class Options:
-    display_size_divider = 1
+    display_size_divider = 3
 
     def __init__(self):
         wd, ht = window.rect.size
@@ -13,6 +14,8 @@ class Options:
             (wd // self.display_size_divider, 
             ht // self.display_size_divider), 
             pygame.SRCALPHA)
+
+        self.title = Title()
 
     def draw(self, display):
         # Fill options' display with a transparent background
