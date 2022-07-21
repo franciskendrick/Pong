@@ -1,3 +1,8 @@
 {
-    "title_position": [68, 7]
+    "title_position": [68, 7],
+    "subtitle_positions": {
+        "score_to_win": [75, 29],
+        "who_starts_after_a_point": [42, 54],
+        "keyboard_sensitivity": [52, 79]
+    }
 }

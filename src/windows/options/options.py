@@ -1,5 +1,6 @@
 from windows import window
 from .title import Title
+from .subtitle import Subtitle
 import pygame
 
 pygame.init()
@@ -16,6 +17,7 @@ class Options:
             pygame.SRCALPHA)
 
         self.title = Title()
+        self.subtitle = Subtitle()
 
     def draw(self, display):
         # Fill options' display with a transparent background
@@ -23,6 +25,7 @@ class Options:
 
         # Draw options window on options' display
         self.title.draw(self.display)
+        self.subtitle.draw(self.display)
 
         # Blit options' display to original display
         resized_menu_display = pygame.transform.scale(
