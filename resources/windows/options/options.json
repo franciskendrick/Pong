@@ -4,5 +4,16 @@
         "score_to_win": [75, 29],
         "who_starts_after_a_point": [42, 54],
         "keyboard_sensitivity": [52, 79]
+    },
+    "buttons_positions": {
+        "score_to_win": {
+            "3": [65, 37],
+            "5": [82, 37],
+            "10": [99, 37],
+            "15": [116, 37],
+            "20": [133, 37]
+        },
+        "who_starts_after_a_point": {},
+        "keyboard_sensitivity": {}
     }
 }
