@@ -1,12 +1,12 @@
 from .clip import clip
 
 
-def clip_set_to_list_on_xaxis(set, y=0):
+def clip_set_to_list_on_xaxis(spriteset, y=0):
     images = []
 
-    # Loop over every top pixel in the given spriteset
-    for x in range(set.get_width()):
-        pixel = set.get_at((x, y))
+    # Loop over every pixel in the given y coordinate in the given spriteset
+    for x in range(spriteset.get_width()):
+        pixel = spriteset.get_at((x, y))
 
         # A sprite has been found
         if pixel == (255, 0, 255, 255):  # magenta pixel
@@ -15,20 +15,20 @@ def clip_set_to_list_on_xaxis(set, y=0):
             # Find the end of the sprite in the X coordinate
             while True:
                 wd += 1
-                pixel = set.get_at((x + wd, y))
+                pixel = spriteset.get_at((x + wd, y))
                 if pixel == (0, 255, 255, 255):  # cyan pixel
                     break
 
             # Find the end of the sprite in the Y coordinate
             while True:
                 ht += 1
-                pixel = set.get_at((x, ht))
+                pixel = spriteset.get_at((x, ht))
                 if pixel == (0, 255, 255, 255):  # cyan pixel
                     break
 
             # Clip image
             img = clip(
-                set, 
+                spriteset, 
                 (x + 1, 1),
                 (wd - 1, ht - 1)
             )
@@ -43,12 +43,12 @@ def clip_set_to_list_on_xaxis(set, y=0):
     return images
 
 
-def clip_set_to_list_on_yaxis(set, x=0):
+def clip_set_to_list_on_yaxis(spriteset, x=0):
     images = []
 
-    # Loop over every left pixel in the given spriteset
-    for y in range(set.get_height()):
-        pixel = set.get_at((x, y))
+    # Loop over every pixel in the given x coordinate in the given spriteset
+    for y in range(spriteset.get_height()):
+        pixel = spriteset.get_at((x, y))
 
         # A sprite has been found
         if pixel == (255, 0, 255, 255):  # magenta
@@ -57,20 +57,20 @@ def clip_set_to_list_on_yaxis(set, x=0):
             # Find the end of the sprite in the X coordinate
             while True:
                 wd += 1
-                pixel = set.get_at((wd, y))
+                pixel = spriteset.get_at((wd, y))
                 if pixel == (0, 255, 255, 255):  # cyan
                     break
 
             # Find the end of the sprite in the Y coordinate
             while True:
                 ht += 1
-                pixel = set.get_at((x, y + ht))
+                pixel = spriteset.get_at((x, y + ht))
                 if pixel == (0, 255, 255, 255):  # cyan
                     break
 
             # Clip image
             img = clip(
-                set,
+                spriteset,
                 (1, y + 1),
                 (wd - 1, ht - 1)
             )
