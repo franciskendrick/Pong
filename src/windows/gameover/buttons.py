@@ -68,7 +68,7 @@ class Buttons:
 
             display.blit(img, rect)
 
-    # Action detection  --------------------------------------------- #
+    # Action detection -------------------------------------------- #
     def button_down_detection(self):
         for (name, button) in self.buttons.items():
             *_, hitbox = button

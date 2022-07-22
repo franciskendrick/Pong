@@ -1,6 +1,7 @@
 from windows import window
 from .title import Title
 from .subtitle import Subtitle
+from .buttons import ScoreToWinButtons, WhoStartsAfterAPointButtons, KeyboardSensitivityButtons
 import pygame
 
 pygame.init()
@@ -18,6 +19,8 @@ class Options:
 
         self.title = Title()
         self.subtitle = Subtitle()
+        self.scoretowin_buttons = ScoreToWinButtons(
+            self.display_size_divider)
 
     def draw(self, display):
         # Fill options' display with a transparent background
