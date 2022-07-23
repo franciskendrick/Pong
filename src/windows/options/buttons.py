@@ -175,7 +175,17 @@ class WhoStartsAfterAPointButtons:
 
     # Action detection -------------------------------------------- #
     def button_down_detection(self):
-        pass
+        for (name, button) in self.buttons.items():
+            *_, hitbox = button
+
+            mouse_pos = pygame.mouse.get_pos()
+            if hitbox.collidepoint(mouse_pos):
+                # Update all buttons' toggle status to false
+                for button in self.buttons.values():
+                    button[1] = False
+                
+                # Update clicked button's toggle status to true
+                self.buttons[name][1] = True
 
     def button_over_detection(self):
         for button in self.buttons.values():
