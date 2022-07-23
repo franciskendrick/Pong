@@ -203,11 +203,63 @@ class WhoStartsAfterAPointButtons:
 class KeyboardSensitivityButtons:
     # Initialize -------------------------------------------------- #
     def __init__(self, display_size_divider):
-        pass
+        order = ["low", "normal", "high"]
+        images = clip_set_to_list_on_yaxis(spriteset[2])
+        enlarge = display_size_divider * window.enlarge
+
+        # Palette
+        palettes = {
+            "hover": {
+                (0, 0, 0): (64, 64, 64),
+                (255, 255, 255): (128, 128, 128)},
+            "on": {
+                (0, 0, 0): (128, 128, 128)},
+        }
+
+        # Buttons
+        self.buttons = {}
+        for name, img in zip(order, images):
+            # Initialize palette swapped images
+            palette_swapped_images = {}
+            for (type, palette) in palettes.items():
+                palette_swapped_images[type] = palette_swap(
+                    img.convert(), palette)
+            else:
+                palette_swapped_images["off"] = img
+
+            # Initialize rectangle & hitbox
+            rect = pygame.Rect(
+                options_data["buttons_positions"]["keyboard_sensitivity"][name],
+                img.get_rect().size)
+            hitbox = pygame.Rect(
+                rect.x * enlarge, rect.y * enlarge,
+                rect.width * enlarge, rect.height * enlarge)
+
+            # Append to buttons
+            button = [
+                False,  # if mouse is over
+                False,  # toggle status
+                palette_swapped_images,  # palette swapped images
+                rect,  # image's rectangle
+                hitbox  # hitbox
+            ]
+            self.buttons[name] = button
 
     # Draw -------------------------------------------------------- #
     def draw(self, display):
-        pass
+        for button in self.buttons.values():
+            mouse_is_over, toggle_status, palette_swapped_images, rect, _ = button
+
+            # Get palette swapped image
+            if mouse_is_over:
+                img = palette_swapped_images["hover"]
+            elif toggle_status:
+                img = palette_swapped_images["on"]
+            else:
+                img = palette_swapped_images["off"]
+
+            # Draw to display
+            display.blit(img, rect)
 
     # Action detection -------------------------------------------- #
     def button_down_detection(self):

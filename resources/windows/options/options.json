@@ -17,6 +17,10 @@
             "winners_ball": [32, 62],
             "losers_ball": [108, 62]
         },
-        "keyboard_sensitivity": {}
+        "keyboard_sensitivity": {
+            "low": [45, 87],
+            "normal": [87, 87],
+            "high": [129, 87]
+        }
     }
 }
