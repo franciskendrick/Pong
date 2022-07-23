@@ -1,10 +1,26 @@
+from utils.image import separate_sets_from_yaxis
 from windows import window
 from .title import Title
 from .subtitle import Subtitle
-from .buttons import ScoreToWinButtons, WhoStartsAfterAPointButtons, KeyboardSensitivityButtons
+from .scoretowin_btns import ScoreToWinButtons
+from .startsafterpoint_btns import StartsAfterPointButtons
+from .keybrsensitivity_btns import SensitivityButtons
 import pygame
+import json
+import os
 
 pygame.init()
+resources_path = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__), 
+        "..", "..", "..", 
+        "resources", "windows", "options"
+        )
+    )
+
+# Json
+with open(f"{resources_path}/options.json") as json_file:
+    options_data = json.load(json_file)
 
 
 class Options:
@@ -17,14 +33,23 @@ class Options:
             ht // self.display_size_divider), 
             pygame.SRCALPHA)
 
+        # Initialize titles
         self.title = Title()
         self.subtitle = Subtitle()
+
+        # Get button spritesets
+        full_spriteset = pygame.image.load(
+            f"{resources_path}/buttons.png")
+        spriteset = separate_sets_from_yaxis(
+            full_spriteset, (255, 0, 0))
+
+        # Initialize buttons
         self.scoretowin_buttons = ScoreToWinButtons(
-            self.display_size_divider)
-        self.startsafterpoint_buttons = WhoStartsAfterAPointButtons(
-            self.display_size_divider)
-        self.keyboardsensitivity_buttons = KeyboardSensitivityButtons(
-            self.display_size_divider)
+            self.display_size_divider, spriteset[0])
+        self.startsafterpoint_buttons = StartsAfterPointButtons(
+            self.display_size_divider, spriteset[1])
+        self.keyboardsensitivity_buttons = SensitivityButtons(
+            self.display_size_divider, spriteset[2])
 
     def draw(self, display):
         # Fill options' display with a transparent background
