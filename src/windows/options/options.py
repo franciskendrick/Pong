@@ -21,6 +21,8 @@ class Options:
         self.subtitle = Subtitle()
         self.scoretowin_buttons = ScoreToWinButtons(
             self.display_size_divider)
+        self.startsafterpoint_buttons = WhoStartsAfterAPointButtons(
+            self.display_size_divider)
 
     def draw(self, display):
         # Fill options' display with a transparent background
@@ -30,6 +32,7 @@ class Options:
         self.title.draw(self.display)
         self.subtitle.draw(self.display)
         self.scoretowin_buttons.draw(self.display)
+        self.startsafterpoint_buttons.draw(self.display)
 
         # Blit options' display to original display
         resized_menu_display = pygame.transform.scale(

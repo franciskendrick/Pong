@@ -13,7 +13,10 @@
             "15": [116, 37],
             "20": [133, 37]
         },
-        "who_starts_after_a_point": {},
+        "who_starts_after_a_point": {
+            "winners_ball": [32, 62],
+            "losers_ball": [108, 62]
+        },
         "keyboard_sensitivity": {}
     }
 }
