@@ -32,15 +32,26 @@ class ScoreToWinButtons:
         enlarge = display_size_divider * window.enlarge
 
         # Palette
-        hover_palette = {
-            (0, 0, 0): (64, 64, 64),
-            (255, 255, 255): (128, 128, 128)}
+        palettes = {
+            "hover": {
+                (0, 0, 0): (64, 64, 64),
+                (255, 255, 255): (128, 128, 128)},
+            "on": {
+                (0, 0, 0): (128, 128, 128)},
+        }
 
         # Buttons
         self.buttons = {}
         for name, img in zip(order, images):
-            # Initialize button
-            hover_img = palette_swap(img.convert(), hover_palette)
+            # Initialize palette swapped images
+            palette_swapped_images = {}
+            for (type, palette) in palettes.items():
+                palette_swapped_images[type] = palette_swap(
+                    img.convert(), palette)
+            else:
+                palette_swapped_images["off"] = img
+
+            # Initialize rectangle & hitbox
             rect = pygame.Rect(
                 options_data["buttons_positions"]["score_to_win"][name],
                 img.get_rect().size)
@@ -51,8 +62,8 @@ class ScoreToWinButtons:
             # Append to buttons
             button = [
                 False,  # if mouse is over
-                img,  # original image
-                hover_img,  # hover image
+                False,  # toggle status
+                palette_swapped_images,  # palette swapped images
                 rect,  # image's rectangle
                 hitbox  # hitbox
             ]
@@ -61,14 +72,32 @@ class ScoreToWinButtons:
     # Draw -------------------------------------------------------- #
     def draw(self, display):
         for button in self.buttons.values():
-            mouse_is_over, orig_img, hover_img, rect, _ = button
-            img = hover_img if mouse_is_over else orig_img
+            mouse_is_over, toggle_status, palette_swapped_images, rect, _ = button
 
+            # Get palette swapped image
+            if mouse_is_over:
+                img = palette_swapped_images["hover"]
+            elif toggle_status:
+                img = palette_swapped_images["on"]
+            else:
+                img = palette_swapped_images["off"]
+
+            # Draw to display
             display.blit(img, rect)
 
     # Action detection -------------------------------------------- #
     def button_down_detection(self):
-        pass
+        for (name, button) in self.buttons.items():
+            *_, hitbox = button
+
+            mouse_pos = pygame.mouse.get_pos()
+            if hitbox.collidepoint(mouse_pos):
+                # Update all buttons' toggle status to false
+                for button in self.buttons.values():
+                    button[1] = False
+                
+                # Update clicked button's toggle status to true
+                self.buttons[name][1] = True
 
     def button_over_detection(self):
         for button in self.buttons.values():

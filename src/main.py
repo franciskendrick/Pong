@@ -214,7 +214,7 @@ def menu_loop():
                 run = False
 
             # Mouse buttons' down detection
-            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been clicked
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
                 btn_pressed = menu.buttons.button_down_detection()
                 if btn_pressed != None:  # a button has been pressed
                     if btn_pressed == "quit":  # the button pressed is the QUIT button
@@ -246,6 +246,10 @@ def options_loop():
             if event.type == pygame.QUIT:
                 run = False
 
+            # Mouse buttons' down detection
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been downed
+                options.scoretowin_buttons.button_down_detection()
+
             # Mouse buttons' over detection
             if event.type == pygame.MOUSEMOTION:
                 options.scoretowin_buttons.button_over_detection()
@@ -274,7 +278,7 @@ def pause_loop():
                 run = False
 
             # Mouse buttons' down detection
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been clicked
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been uped
                 btn_pressed = pause.buttons.button_down_detection()
                 if btn_pressed != None:
                     for function in btn_switchcase[btn_pressed]:
