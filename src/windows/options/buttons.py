@@ -18,7 +18,7 @@ resources_path = os.path.abspath(
 with open(f"{resources_path}/options.json") as json_file:
     options_data = json.load(json_file)
 
-#
+# Button spritesets
 full_spriteset = pygame.image.load(f"{resources_path}/buttons.png")
 scoretowin_spriteset, _, _, _, _ = separate_sets_from_yaxis(
     full_spriteset, (255, 0, 0))
@@ -71,11 +71,16 @@ class ScoreToWinButtons:
         pass
 
     def button_over_detection(self):
-        pass
+        for button in self.buttons.values():
+            *_, hitbox = button
+
+            mouse_pos = pygame.mouse.get_pos()
+            button[0] = True if hitbox.collidepoint(mouse_pos) else False
 
     # Functions --------------------------------------------------- #
     def reset_overdetection(self):
-        pass
+        for button in self.buttons.values():
+            button[0] = False
 
 
 class WhoStartsAfterAPointButtons:

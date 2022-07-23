@@ -246,6 +246,10 @@ def options_loop():
             if event.type == pygame.QUIT:
                 run = False
 
+            # Mouse buttons' over detection
+            if event.type == pygame.MOUSEMOTION:
+                options.scoretowin_buttons.button_over_detection()
+
         # Update display
         redraw_options() 
         clock.tick(window.framerate)
