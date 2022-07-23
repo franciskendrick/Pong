@@ -178,11 +178,16 @@ class WhoStartsAfterAPointButtons:
         pass
 
     def button_over_detection(self):
-        pass
+        for button in self.buttons.values():
+            *_, hitbox = button
+
+            mouse_pos = pygame.mouse.get_pos()
+            button[0] = True if hitbox.collidepoint(mouse_pos) else False
 
     # Functions --------------------------------------------------- #
     def reset_overdetection(self):
-        pass
+        for button in self.buttons.values():
+            button[0] = False
 
 
 class KeyboardSensitivityButtons:
