@@ -255,6 +255,7 @@ def options_loop():
             if event.type == pygame.MOUSEMOTION:
                 options.scoretowin_buttons.button_over_detection()
                 options.startsafterpoint_buttons.button_over_detection()
+                options.keyboardsensitivity_buttons.button_over_detection()
 
         # Update display
         redraw_options() 
