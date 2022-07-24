@@ -259,6 +259,8 @@ def options_loop():
                 options.keyboardsensitivity_buttons.button_over_detection()
 
                 options.back_button.button_over_detection()
+                options.reset_button.button_over_detection()
+                options.sound_button.button_over_detection()
 
         # Update display
         redraw_options() 

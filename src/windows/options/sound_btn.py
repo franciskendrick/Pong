@@ -78,8 +78,11 @@ class SoundButton:
         pass
 
     def button_over_detection(self):
-        pass
+        *_, hitbox = self.button
+
+        mouse_pos = pygame.mouse.get_pos()
+        self.button[0] = True if hitbox.collidepoint(mouse_pos) else False
 
     # Functions --------------------------------------------------- #
     def reset_overdetection(self):
-        pass
+        self.button[0] = False
