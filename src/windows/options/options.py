@@ -1,10 +1,13 @@
-from utils.image import separate_sets_from_yaxis
+from utils.image import separate_sets_from_yaxis, clip_set_to_list_on_xaxis
 from windows import window
 from .title import Title
 from .subtitle import Subtitle
 from .scoretowin_btns import ScoreToWinButtons
 from .startsafterpoint_btns import StartsAfterPointButtons
 from .keybrsensitivity_btns import SensitivityButtons
+from .back_btn import BackButton
+from .reset_btn import ResetButton
+from .sound_btn import SoundButton
 import pygame
 import json
 import os
@@ -37,19 +40,31 @@ class Options:
         self.title = Title()
         self.subtitle = Subtitle()
 
-        # Get button spritesets
+        # Get full button spritesets
         full_spriteset = pygame.image.load(
             f"{resources_path}/buttons.png")
         spriteset = separate_sets_from_yaxis(
             full_spriteset, (255, 0, 0))
 
-        # Initialize buttons
+        # Initialize game settings buttons
         self.scoretowin_buttons = ScoreToWinButtons(
             self.display_size_divider, spriteset[0])
         self.startsafterpoint_buttons = StartsAfterPointButtons(
             self.display_size_divider, spriteset[1])
         self.keyboardsensitivity_buttons = SensitivityButtons(
             self.display_size_divider, spriteset[2])
+
+        # Get miscellaneous button spriteset
+        back_img, reset_img, sound_img = clip_set_to_list_on_xaxis(
+            spriteset[3])
+
+        # Initialize miscellaneous buttons
+        self.back_button = BackButton(
+            self.display_size_divider, back_img)
+        self.reset_button = ResetButton(
+            self.display_size_divider, reset_img)
+        self.sound_button = SoundButton(
+            self.display_size_divider, sound_img)
 
     def draw(self, display):
         # Fill options' display with a transparent background

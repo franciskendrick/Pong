@@ -1,4 +1,4 @@
-from utils.image import clip_set_to_list_on_yaxis, palette_swap
+from utils.image import clip_set_to_list_on_xaxis, palette_swap
 from windows import window
 import pygame
 import json
@@ -22,7 +22,7 @@ class SensitivityButtons:
     # Initialize -------------------------------------------------- #
     def __init__(self, display_size_divider, spriteset):
         order = ["low", "normal", "high"]
-        images = clip_set_to_list_on_yaxis(spriteset)
+        images = clip_set_to_list_on_xaxis(spriteset)
         enlarge = display_size_divider * window.enlarge
 
         # Palette
