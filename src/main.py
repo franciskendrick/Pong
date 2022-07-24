@@ -258,6 +258,8 @@ def options_loop():
                 options.startsafterpoint_buttons.button_over_detection()
                 options.keyboardsensitivity_buttons.button_over_detection()
 
+                options.back_button.button_over_detection()
+
         # Update display
         redraw_options() 
         clock.tick(window.framerate)
