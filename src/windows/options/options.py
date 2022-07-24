@@ -79,6 +79,8 @@ class Options:
         self.keyboardsensitivity_buttons.draw(self.display)
 
         self.back_button.draw(self.display)
+        self.reset_button.draw(self.display)
+        self.sound_button.draw(self.display)
 
         # Blit options' display to original display
         resized_menu_display = pygame.transform.scale(

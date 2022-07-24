@@ -104,4 +104,3 @@ class ScoreToWinButtons:
     def reset_overdetection(self):
         for button in self.buttons.values():
             button[0] = False
-
