@@ -75,11 +75,13 @@ class ResetButton:
 
     # Action detection -------------------------------------------- #
     def button_down_detection(self):
-        pass
+        *_, hitbox = self.button
+        mouse_pos = pygame.mouse.get_pos()
+        if hitbox.collidepoint(mouse_pos):
+            return "reset"
 
     def button_over_detection(self):
         *_, hitbox = self.button
-
         mouse_pos = pygame.mouse.get_pos()
         self.button[0] = True if hitbox.collidepoint(mouse_pos) else False
 

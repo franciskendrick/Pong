@@ -248,16 +248,19 @@ def options_loop():
 
             # Mouse buttons' down detection
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been downed
+                # Game settings buttons' down detection
                 options.scoretowin_buttons.button_down_detection()
                 options.startsafterpoint_buttons.button_down_detection()
                 options.keyboardsensitivity_buttons.button_down_detection()
 
             # Mouse buttons' over detection
             if event.type == pygame.MOUSEMOTION:
+                # Game settings buttons' over detection
                 options.scoretowin_buttons.button_over_detection()
                 options.startsafterpoint_buttons.button_over_detection()
                 options.keyboardsensitivity_buttons.button_over_detection()
 
+                # Miscellaneous buttons' over detection
                 options.back_button.button_over_detection()
                 options.reset_button.button_over_detection()
                 options.sound_button.button_over_detection()
