@@ -73,9 +73,12 @@ class Options:
         # Draw options window on options' display
         self.title.draw(self.display)
         self.subtitle.draw(self.display)
+
         self.scoretowin_buttons.draw(self.display)
         self.startsafterpoint_buttons.draw(self.display)
         self.keyboardsensitivity_buttons.draw(self.display)
+
+        self.back_button.draw(self.display)
 
         # Blit options' display to original display
         resized_menu_display = pygame.transform.scale(

@@ -18,7 +18,7 @@ with open(f"{resources_path}/options.json") as json_file:
 
 class SoundButton:
     # Initialize -------------------------------------------------- #
-    def __init__(self, display_size_divider, spriteset):
+    def __init__(self, display_size_divider, sprite):
         pass
 
     # Draw -------------------------------------------------------- #
