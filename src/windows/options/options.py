@@ -5,9 +5,7 @@ from .subtitle import Subtitle
 from .scoretowin_btns import ScoreToWinButtons
 from .startsafterpoint_btns import StartsAfterPointButtons
 from .keybrsensitivity_btns import SensitivityButtons
-from .back_btn import BackButton
-from .reset_btn import ResetButton
-from .sound_btn import SoundButton
+from .miscellaneous_btns import MiscellaneousButtons
 import pygame
 import json
 import os
@@ -53,18 +51,8 @@ class Options:
             self.display_size_divider, spriteset[1])
         self.keyboardsensitivity_buttons = SensitivityButtons(
             self.display_size_divider, spriteset[2])
-
-        # Get miscellaneous button spriteset
-        back_img, reset_img, sound_img = clip_set_to_list_on_xaxis(
-            spriteset[3])
-
-        # Initialize miscellaneous buttons
-        self.back_button = BackButton(
-            self.display_size_divider, back_img)
-        self.reset_button = ResetButton(
-            self.display_size_divider, reset_img)
-        self.sound_button = SoundButton(
-            self.display_size_divider, sound_img)
+        self.miscellaneous_buttons = MiscellaneousButtons(
+            self.display_size_divider, spriteset[3])
 
     def draw(self, display):
         # Fill options' display with a transparent background
@@ -77,10 +65,7 @@ class Options:
         self.scoretowin_buttons.draw(self.display)
         self.startsafterpoint_buttons.draw(self.display)
         self.keyboardsensitivity_buttons.draw(self.display)
-
-        self.back_button.draw(self.display)
-        self.reset_button.draw(self.display)
-        self.sound_button.draw(self.display)
+        self.miscellaneous_buttons.draw(self.display)
 
         # Blit options' display to original display
         resized_menu_display = pygame.transform.scale(
