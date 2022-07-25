@@ -1,4 +1,4 @@
-from utils.image import separate_sets_from_yaxis, clip_set_to_list_on_xaxis
+from utils.image import separate_sets_from_yaxis
 from windows import window
 from .title import Title
 from .subtitle import Subtitle

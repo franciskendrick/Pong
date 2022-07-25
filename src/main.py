@@ -230,6 +230,7 @@ def menu_loop():
 
 
 def options_loop(from_loop):
+    # Initialize options' buttons switchcase
     backbtn_switchcase = {
         "menu": [menu_loop],
         "gameover": [gameover_loop]
@@ -278,6 +279,7 @@ def options_loop(from_loop):
 
 
 def pause_loop():
+    # Initialize pause's buttons switchcase
     btn_switchcase = {
         "play": [game_loop],
         "menu": [game_reset, menu_loop]
@@ -319,7 +321,7 @@ def pause_loop():
 
 
 def gameover_loop():
-    # Initialize button switchcase
+    # Initialize gameover's buttons switchcase
     btn_switchcase = {
         "play": [game_reset, game_loop],
         "menu": [game_reset, menu_loop]
@@ -398,4 +400,4 @@ if __name__ == "__main__":
     # gameover.title.init_rect(won_side)
     # gameover.buttons.init_rect(
     #     won_side, GameOver.display_size_divider)
-    options_loop()
+    options_loop("menu")

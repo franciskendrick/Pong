@@ -1,6 +1,15 @@
 import pygame
+import json
+import os
 
 pygame.init()
+resources_path = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__), 
+        "..", "..", 
+        "resources", "windows"
+        )
+    )
 
 
 class Window:
@@ -24,6 +33,12 @@ class Window:
 
     # Framerate
     framerate = 60
+
+    # Initialize -------------------------------------------------- #
+    def __init__(self):
+        # Options Stauts
+        with open(f"{resources_path}/options_settings.json") as json_file:
+            self.options_settings = json.load(json_file)
 
     # Draw -------------------------------------------------------- #
     def draw_playablesurface(self, display):

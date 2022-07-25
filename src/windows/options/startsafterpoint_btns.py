@@ -37,6 +37,10 @@ class StartsAfterPointButtons:
         # Buttons
         self.buttons = {}
         for name, img in zip(order, images):
+            # Initialize toggle status
+            options_settings = window.options_settings["who_starts_after_a_point"]
+            toggle_status = True if options_settings == name else False
+
             # Initialize palette swapped images
             palette_swapped_images = {}
             for (type, palette) in palettes.items():
@@ -56,7 +60,7 @@ class StartsAfterPointButtons:
             # Append
             button = [
                 False,  # if mouse is over
-                False,  # toggle status
+                toggle_status,  # toggle status
                 palette_swapped_images,  # palette swapped images
                 rect,  # image's rectangle
                 hitbox  # hitbox
