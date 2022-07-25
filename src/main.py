@@ -198,12 +198,6 @@ def game_loop():
 
 
 def menu_loop():
-    btn_switchcase = {
-        "play": [game_loop],
-        "options": [],  # !!!
-        "quit": []
-    }
-
     # Loop
     run = True
     while run:
@@ -216,13 +210,12 @@ def menu_loop():
             # Mouse buttons' down detection
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
                 btn_pressed = menu.buttons.button_down_detection()
-                if btn_pressed != None:  # a button has been pressed
-                    if btn_pressed == "quit":  # the button pressed is the QUIT button
-                        run = False
-                    else:  # the button pressed is NOT the QUIT button
-                        for function in btn_switchcase[btn_pressed]:
-                            menu.buttons.reset_overdetection()
-                            function()
+                if btn_pressed == "play":  # the button pressed is the PLAY button
+                    game_loop()
+                elif btn_pressed == "options":  # the button pressed is the OPTIONS button
+                    options_loop("menu")
+                elif btn_pressed == "quit":  # the button pressed is the QUIT button
+                    run = False
 
             # Menu buttons' over detection
             if event.type == pygame.MOUSEMOTION:
@@ -236,7 +229,17 @@ def menu_loop():
     sys.exit()
 
 
-def options_loop():
+def options_loop(from_loop):
+    backbtn_switchcase = {
+        "menu": [menu_loop],
+        "gameover": [gameover_loop]
+    }
+    btn_switchcase = {
+        "back": backbtn_switchcase[from_loop],
+        "reset": [],  # !!!
+        "sound": []  # !!!
+    }
+
     # Loop
     run = True
     while run:
@@ -248,9 +251,16 @@ def options_loop():
 
             # Mouse buttons' down detection
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been downed
+                # Game settings buttons' down detection
                 options.scoretowin_buttons.button_down_detection()
                 options.startsafterpoint_buttons.button_down_detection()
                 options.keyboardsensitivity_buttons.button_down_detection()
+
+                # Miscellaneous buttons' down detection
+                btn_pressed = options.miscellaneous_buttons.button_down_detection()
+                if btn_pressed != None:
+                    for function in btn_switchcase[btn_pressed]:
+                        function()
 
             # Mouse buttons' over detection
             if event.type == pygame.MOUSEMOTION:
@@ -309,16 +319,9 @@ def pause_loop():
 
 
 def gameover_loop():
-    # !!!
-    won_side = "left"
-    gameover.title.init_rect(won_side)
-    gameover.buttons.init_rect(
-        won_side, GameOver.display_size_divider)
-
     # Initialize button switchcase
     btn_switchcase = {
         "play": [game_reset, game_loop],
-        "options": [],  # !!!
         "menu": [game_reset, menu_loop]
     }
 
@@ -335,9 +338,12 @@ def gameover_loop():
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 btn_pressed = gameover.buttons.button_down_detection()
                 if btn_pressed != None:  # a button has been pressed
-                    for function in btn_switchcase[btn_pressed]:
-                        gameover.buttons.reset_overdetection()
-                        function()
+                    if btn_pressed == "options":
+                        options_loop("gameover")
+                    else:
+                        for function in btn_switchcase[btn_pressed]:
+                            gameover.buttons.reset_overdetection()
+                            function()
 
             # Mouse buttons' over detection
             if event.type == pygame.MOUSEMOTION:
@@ -387,4 +393,9 @@ if __name__ == "__main__":
     options = Options()
 
     # Execute
+    # !!!
+    # won_side = "left"
+    # gameover.title.init_rect(won_side)
+    # gameover.buttons.init_rect(
+    #     won_side, GameOver.display_size_divider)
     options_loop()

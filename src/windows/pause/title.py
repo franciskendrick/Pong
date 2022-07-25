@@ -44,7 +44,7 @@ class Title:
             self.idx = 0
 
         # Draw
-        img, rect = self.frames[self.idx // 10]
+        img = self.frames[self.idx // 10]
         display.blit(img, self.rect)
 
         # Update
