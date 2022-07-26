@@ -59,6 +59,9 @@ class Options:
         self.miscellaneous_buttons = MiscellaneousButtons(
             self.display_size_divider, spriteset[3])
 
+        # Score to win value
+        self.score_limit = self.scoretowin_buttons.get_scoretowin_value()
+
     def draw(self, display):
         # Fill options' display with a transparent background
         self.display.fill((0, 0, 0, 0))

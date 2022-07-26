@@ -88,3 +88,8 @@ class Buttons:
     def reset_overdetection(self):
         for button in self.buttons.values():
             button[0] = False
+
+    def reset_rect(self):
+        for button in self.buttons.values():
+            button.pop(-1)  # pop hitbox
+            button.pop(-1)  # pop rectangle

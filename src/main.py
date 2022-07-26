@@ -191,6 +191,26 @@ def game_loop():
 
                 # Update round finished variable to true
                 game.round_finished = True
+        
+            # Check for game winner
+            if game.scoreboard.scores["right"] >= options.score_limit:  # right player won
+                # Initialize the winning side
+                won_side = "right"
+                gameover.title.init_rect(won_side)
+                gameover.buttons.init_rect(
+                    won_side, GameOver.display_size_divider)
+
+                gameover_loop()
+            elif game.scoreboard.scores["left"] >= options.score_limit:  # left player won
+                # Initialize the winning side
+                won_side = "left"
+
+                # Initialize the 
+                gameover.title.init_rect(won_side)
+                gameover.buttons.init_rect(
+                    won_side, GameOver.display_size_divider)
+
+                gameover_loop()
         else:
             # Reset ball 1.5 seconds after round winner has been declared
             dt = time.perf_counter() - game.time_of_round_end
@@ -255,7 +275,7 @@ def options_loop(from_loop):
     }
     btn_switchcase = {
         "back": backbtn_switchcase[from_loop],
-        "reset": [options.reset],  # !!!
+        "reset": [options.reset],
         "sound": []  # !!!
     }
 
@@ -280,7 +300,7 @@ def options_loop(from_loop):
             # Mouse buttons' down detection
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been downed
                 # Game settings buttons' down detection
-                options.scoretowin_buttons.button_down_detection()
+                options.scoretowin_buttons.button_down_detection(options)
                 options.startsafterpoint_buttons.button_down_detection()
                 options.keyboardsensitivity_buttons.button_down_detection()
 
@@ -359,8 +379,14 @@ def pause_loop():
 def gameover_loop():
     # Initialize gameover's buttons switchcase
     btn_switchcase = {
-        "play": [game_reset, game_loop],
-        "menu": [game_reset, menu_loop]
+        "play": [
+            gameover.buttons.reset_rect,  # reset gameover's buttons' rectangles
+            game_reset, game_loop  # redirect to game
+        ],
+        "menu": [ 
+            gameover.buttons.reset_rect,  # reset gameover's buttons' rectangles
+            game_reset, menu_loop  # redirect to menu
+        ]
     }
 
     # Loop

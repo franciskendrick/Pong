@@ -84,7 +84,7 @@ class ScoreToWinButtons:
             display.blit(img, rect)
 
     # Action detection -------------------------------------------- #
-    def button_down_detection(self):
+    def button_down_detection(self, options):
         for (name, button) in self.buttons.items():
             *_, hitbox = button
 
@@ -97,6 +97,9 @@ class ScoreToWinButtons:
                 # Update clicked button's toggle status to true
                 self.buttons[name][1] = True
 
+                # Update score to win value
+                options.score_limit = self.get_scoretowin_value()
+
     def button_over_detection(self):
         for button in self.buttons.values():
             *_, hitbox = button
@@ -108,3 +111,8 @@ class ScoreToWinButtons:
     def reset_overdetection(self):
         for button in self.buttons.values():
             button[0] = False
+
+    def get_scoretowin_value(self):
+        for (name, button) in self.buttons.items():
+            if button[1]:
+                return int(name)
