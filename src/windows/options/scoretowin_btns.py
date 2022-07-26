@@ -39,7 +39,7 @@ class ScoreToWinButtons:
         for name, img in zip(order, images):
             # Initialize toggle status
             options_settings = window.options_settings["score_to_win"]
-            toggle_status = True if str(options_settings) == name else False
+            toggle_status = True if options_settings == name else False
 
             # Initialize palette swapped images
             palette_swapped_images = {}

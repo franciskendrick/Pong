@@ -140,6 +140,15 @@ def game_loop():
         for event in pygame.event.get():
             # Quit detection
             if event.type == pygame.QUIT:
+                # Update options settings' JSON
+                options_settings = {
+                    "score_to_win": options.scoretowin_buttons,
+                    "who_starts_after_a_point": options.startsafterpoint_buttons,
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                }
+                window.update_optionssettings(options_settings)
+
+                # Turn off the loop
                 run = False
 
             # Keydown detection
@@ -205,6 +214,15 @@ def menu_loop():
         for event in pygame.event.get():
             # Quit detection
             if event.type == pygame.QUIT:
+                # Update options settings' JSON
+                options_settings = {
+                    "score_to_win": options.scoretowin_buttons,
+                    "who_starts_after_a_point": options.startsafterpoint_buttons,
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                }
+                window.update_optionssettings(options_settings)
+
+                # Turn off the loop
                 run = False
 
             # Mouse buttons' down detection
@@ -248,6 +266,15 @@ def options_loop(from_loop):
         for event in pygame.event.get():
             # Quit detection
             if event.type == pygame.QUIT:
+                # Update options settings' JSON
+                options_settings = {
+                    "score_to_win": options.scoretowin_buttons,
+                    "who_starts_after_a_point": options.startsafterpoint_buttons,
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                }
+                window.update_optionssettings(options_settings)
+
+                # Turn off the loop
                 run = False
 
             # Mouse buttons' down detection
@@ -292,6 +319,15 @@ def pause_loop():
         for event in pygame.event.get():
             # Quit detection
             if event.type == pygame.QUIT:
+                # Update options settings' JSON
+                options_settings = {
+                    "score_to_win": options.scoretowin_buttons,
+                    "who_starts_after_a_point": options.startsafterpoint_buttons,
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                }
+                window.update_optionssettings(options_settings)
+
+                # Turn off the loop
                 run = False
 
             # Mouse buttons' down detection
@@ -334,6 +370,15 @@ def gameover_loop():
         for event in pygame.event.get():
             # Quit detection
             if event.type == pygame.QUIT:
+                # Update options settings' JSON
+                options_settings = {
+                    "score_to_win": options.scoretowin_buttons,
+                    "who_starts_after_a_point": options.startsafterpoint_buttons,
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                }
+                window.update_optionssettings(options_settings)
+
+                # Turn off the loop
                 run = False
 
             # Mouse buttons' down detection
@@ -400,4 +445,4 @@ if __name__ == "__main__":
     # gameover.title.init_rect(won_side)
     # gameover.buttons.init_rect(
     #     won_side, GameOver.display_size_divider)
-    options_loop("menu")
+    menu_loop()

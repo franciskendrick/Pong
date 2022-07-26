@@ -47,5 +47,24 @@ class Window:
     def draw_centerline(self, display):
         pygame.draw.rect(display, self.white, self.center_line)
 
+    # Update ------------------------------------------------------ #
+    def update_optionssettings(self, options_settings):
+        # Get handle options settings
+        handle_optionssettings = self.options_settings.copy()
+
+        # Edit options settings
+        for json_key, options_value in zip(
+                handle_optionssettings.keys(), options_settings.values()):
+
+            for (name, button) in options_value.buttons.items():
+                if button[1]:  # buttons' toggle status is True
+                    handle_optionssettings[json_key] = name
+                    break
+
+        # Dump handle options settings to the JSON file
+        with open(f"{resources_path}/options_settings.json", "w") as json_file:
+            json.dump(handle_optionssettings, json_file)
+            
+
 
 window = Window()
