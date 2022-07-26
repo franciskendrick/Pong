@@ -25,6 +25,11 @@ with open(f"{resources_path}/options.json") as json_file:
 
 
 class Options:
+    original_optionssettings = {
+        "score_to_win": "10",
+        "who_starts_after_a_point": "losers_ball",
+        "keyboard_sensitivity": "normal"
+    }
     display_size_divider = 3
 
     def __init__(self):
@@ -71,3 +76,21 @@ class Options:
         resized_menu_display = pygame.transform.scale(
             self.display, display.get_size())
         display.blit(resized_menu_display, (0, 0))
+
+    def reset(self):
+        options_buttons = {
+            "score_to_win": self.scoretowin_buttons, 
+            "who_starts_after_a_point": self.startsafterpoint_buttons,
+            "keyboard_sensitivity": self.keyboardsensitivity_buttons}
+
+        # Turn off all options settings' buttons' toggle status
+        for options_btn in options_buttons.values():
+            for button in options_btn.buttons.values():
+                button[1] = False
+
+        # Turn on the orignial values in options settings' buttons' toggle status
+        for options_btn, original_value in zip(
+                options_buttons.values(), self.original_optionssettings.values()):
+            for (name, button) in options_btn.buttons.items():
+                if name == original_value:
+                    button[1] = True

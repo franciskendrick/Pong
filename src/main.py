@@ -255,7 +255,7 @@ def options_loop(from_loop):
     }
     btn_switchcase = {
         "back": backbtn_switchcase[from_loop],
-        "reset": [],  # !!!
+        "reset": [options.reset],  # !!!
         "sound": []  # !!!
     }
 
