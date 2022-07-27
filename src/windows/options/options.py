@@ -32,6 +32,7 @@ class Options:
     }
     display_size_divider = 3
 
+    # Initialize -------------------------------------------------- #
     def __init__(self):
         wd, ht = window.rect.size
         self.display = pygame.Surface(
@@ -62,6 +63,7 @@ class Options:
         # Score to win value
         self.score_limit = self.scoretowin_buttons.get_scoretowin_value()
 
+    # Draw -------------------------------------------------------- #
     def draw(self, display):
         # Fill options' display with a transparent background
         self.display.fill((0, 0, 0, 0))
@@ -80,6 +82,7 @@ class Options:
             self.display, display.get_size())
         display.blit(resized_menu_display, (0, 0))
 
+    # Functions --------------------------------------------------- #
     def reset(self):
         options_buttons = {
             "score_to_win": self.scoretowin_buttons, 
@@ -97,3 +100,13 @@ class Options:
             for (name, button) in options_btn.buttons.items():
                 if name == original_value:
                     button[1] = True
+
+    def reset_overdetection(self):
+        options_buttons = [
+            self.scoretowin_buttons,
+            self.startsafterpoint_buttons,
+            self.keyboardsensitivity_buttons,
+            self.miscellaneous_buttons]
+            
+        for buttons in options_buttons:
+            buttons.reset_overdetection()

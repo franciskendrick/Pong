@@ -249,8 +249,10 @@ def menu_loop():
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
                 btn_pressed = menu.buttons.button_down_detection()
                 if btn_pressed == "play":  # the button pressed is the PLAY button
+                    menu.buttons.reset_overdetection()
                     game_loop()
                 elif btn_pressed == "options":  # the button pressed is the OPTIONS button
+                    menu.buttons.reset_overdetection()
                     options_loop("menu")
                 elif btn_pressed == "quit":  # the button pressed is the QUIT button
                     run = False
@@ -308,6 +310,7 @@ def options_loop(from_loop):
                 btn_pressed = options.miscellaneous_buttons.button_down_detection()
                 if btn_pressed != None:
                     for function in btn_switchcase[btn_pressed]:
+                        options.reset_overdetection()
                         function()
 
             # Mouse buttons' over detection
@@ -412,6 +415,7 @@ def gameover_loop():
                 btn_pressed = gameover.buttons.button_down_detection()
                 if btn_pressed != None:  # a button has been pressed
                     if btn_pressed == "options":
+                        gameover.buttons.reset_overdetection()
                         options_loop("gameover")
                     else:
                         for function in btn_switchcase[btn_pressed]:
@@ -466,9 +470,4 @@ if __name__ == "__main__":
     options = Options()
 
     # Execute
-    # !!!
-    # won_side = "left"
-    # gameover.title.init_rect(won_side)
-    # gameover.buttons.init_rect(
-    #     won_side, GameOver.display_size_divider)
     menu_loop()
