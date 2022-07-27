@@ -111,3 +111,8 @@ class StartsAfterPointButtons:
     def reset_overdetection(self):
         for button in self.buttons.values():
             button[0] = False
+
+    def get_whosball_value(self):
+        for (name, button) in self.buttons.items():
+            if button[1]:
+                return name

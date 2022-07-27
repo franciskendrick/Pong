@@ -80,13 +80,14 @@ class Ball:
                 self.y_vel = -1 * new_y_vel
 
     # Functions --------------------------------------------------- #
-    def round_reset(self):
+    def round_reset(self, whos_ball):
         # Rectangle
         self.rect.x = self.original_x
         self.rect.y = self.original_y
 
         # Velocities
-        self.x_vel *= -1
+        if whos_ball == "winners_ball":
+            self.x_vel *= -1
         self.y_vel = 0
 
     def full_reset(self):

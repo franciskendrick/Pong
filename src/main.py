@@ -220,7 +220,8 @@ def game_loop():
             # Reset ball 1.5 seconds after round winner has been declared
             dt = time.perf_counter() - game.time_of_round_end
             if dt * 1000 >= 1500:
-                ball.round_reset()
+                whos_ball = options.startsafterpoint_buttons.get_whosball_value()
+                ball.round_reset(whos_ball)
                 game.round_finished = False
 
         # Update display
