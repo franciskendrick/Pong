@@ -1,4 +1,4 @@
-from utils.image import clip_set_to_list_on_yaxis, palette_swap
+from utils import clip_set_to_list_on_yaxis, palette_swap
 from windows import window
 import pygame
 import json

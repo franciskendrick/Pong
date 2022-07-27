@@ -1,4 +1,4 @@
-from utils.image import clip_set_to_list_on_yaxis
+from utils import clip_set_to_list_on_yaxis
 import pygame
 import json
 import os
