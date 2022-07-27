@@ -97,6 +97,9 @@ class SensitivityButtons:
                 # Update clicked button's toggle status to true
                 self.buttons[name][1] = True
 
+                # Break loop
+                break
+
     def button_over_detection(self):
         for button in self.buttons.values():
             *_, hitbox = button

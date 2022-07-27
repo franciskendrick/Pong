@@ -100,6 +100,7 @@ class Options:
             for (name, button) in options_btn.buttons.items():
                 if name == original_value:
                     button[1] = True
+                    break
 
     def reset_overdetection(self):
         options_buttons = [

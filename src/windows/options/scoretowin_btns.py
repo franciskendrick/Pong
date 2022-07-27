@@ -100,6 +100,9 @@ class ScoreToWinButtons:
                 # Update score to win value
                 options.score_limit = self.get_scoretowin_value()
 
+                # Break loop
+                break
+
     def button_over_detection(self):
         for button in self.buttons.values():
             *_, hitbox = button
