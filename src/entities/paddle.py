@@ -10,12 +10,17 @@ class Paddle:
     height = 50
 
     # Movement
-    vel = 4
+    sens_to_vel_switchcase = {
+        "low": 2,
+        "normal": 4,
+        "high": 6
+    }
 
     # Initialize -------------------------------------------------- #
-    def __init__(self, x, y):
+    def __init__(self, sensitivity, pos):
+        self.vel = self.sens_to_vel_switchcase[sensitivity]
         self.rect = pygame.Rect(
-            x, y, self.width, self.height)
+            *pos, self.width, self.height)
 
     # Draw -------------------------------------------------------- #
     def draw(self, display):
@@ -42,3 +47,7 @@ class Paddle:
             # Check for playable rectangle and hitbox collision
             if window.playable_rect.bottom > handle_hitbox.bottom:
                 self.rect.y += self.vel
+
+    # Functions --------------------------------------------------- #
+    def update_sensitivity(self, sensitivity):
+        self.vel = self.sens_to_vel_switchcase[sensitivity]

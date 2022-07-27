@@ -111,3 +111,8 @@ class SensitivityButtons:
     def reset_overdetection(self):
         for button in self.buttons.values():
             button[0] = False
+
+    def get_sensitivity_value(self):
+        for (name, button) in self.buttons.items():
+            if button[1]:
+                return name

@@ -121,6 +121,11 @@ def redraw_gameover():
 
 # Loop ------------------------------------------------------------ #
 def game_loop():
+    # Update paddles' sensitivity
+    sensitivity = options.keyboardsensitivity_buttons.get_sensitivity_value()
+    for paddle in paddles.values():
+        paddle.update_sensitivity(sensitivity)
+
     # Paddle's button keys
     paddle_buttonkeys = {
         "left": {
@@ -446,7 +451,15 @@ if __name__ == "__main__":
     pygame.display.set_caption("Pong!")
     clock = pygame.time.Clock()
 
+    # Initialize windows
+    game = Game()
+    menu = Menu()
+    pause = Pause()
+    gameover = GameOver()
+    options = Options()
+
     # Initialize paddle
+    sensitivity = options.keyboardsensitivity_buttons.get_sensitivity_value()
     paddle_positions = {
         "left": [10, (window.rect.height // 2 - Paddle.height // 2)],
         "right": [
@@ -455,19 +468,12 @@ if __name__ == "__main__":
         ]
     }
     paddles = {
-        "left": Paddle(*paddle_positions["left"]),
-        "right": Paddle(*paddle_positions["right"])
+        "left": Paddle(sensitivity, paddle_positions["left"]),
+        "right": Paddle(sensitivity, paddle_positions["right"])
     }
 
     # Initialize ball
     ball = Ball()
-
-    # Initialize windows
-    game = Game()
-    menu = Menu()
-    pause = Pause()
-    gameover = GameOver()
-    options = Options()
 
     # Execute
     menu_loop()
