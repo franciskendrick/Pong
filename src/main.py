@@ -1,4 +1,6 @@
-from windows import window, Game, Menu, Options, Pause, GameOver
+from windows import window
+from windows import Menu, Game, Options, Pause, GameOver
+from windows import GameMode
 from entities import Paddle
 from entities import Ball
 import pygame
@@ -36,6 +38,9 @@ def redraw_gamemode():
     # Draw background
     display.fill(window.white)
     window.draw_playablesurface(display)
+
+    # Draw gamemode
+    gamemode.draw(display)
 
     # Blit to window ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)
@@ -493,11 +498,13 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
 
     # Initialize windows
-    game = Game()
     menu = Menu()
+    game = Game()
+    options = Options()
     pause = Pause()
     gameover = GameOver()
-    options = Options()
+
+    gamemode = GameMode()
 
     # Initialize paddle
     sensitivity = options.keyboardsensitivity_buttons.get_sensitivity_value()
