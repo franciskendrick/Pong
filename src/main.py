@@ -17,6 +17,33 @@ def game_reset():
 
 
 # Redraw ---------------------------------------------------------- #
+def redraw_menu():
+    # Draw background
+    display.fill(window.white)
+    window.draw_playablesurface(display)
+
+    # Draw menu
+    menu.draw(display)
+
+    # Blit to window ---------------------------------------------- #
+    resized_display = pygame.transform.scale(display, win_size)
+    win.blit(resized_display, (0, 0))
+
+    pygame.display.update()
+
+
+def redraw_gamemode():
+    # Draw background
+    display.fill(window.white)
+    window.draw_playablesurface(display)
+
+    # Blit to window ---------------------------------------------- #
+    resized_display = pygame.transform.scale(display, win_size)
+    win.blit(resized_display, (0, 0))
+
+    pygame.display.update()
+
+
 def redraw_game():
     # Draw background
     display.fill(window.white)
@@ -32,21 +59,6 @@ def redraw_game():
 
     # Draw ball
     ball.draw(display)
-
-    # Blit to window ---------------------------------------------- #
-    resized_display = pygame.transform.scale(display, win_size)
-    win.blit(resized_display, (0, 0))
-
-    pygame.display.update()
-
-
-def redraw_menu():
-    # Draw background
-    display.fill(window.white)
-    window.draw_playablesurface(display)
-
-    # Draw menu
-    menu.draw(display)
 
     # Blit to window ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)
@@ -120,6 +132,76 @@ def redraw_gameover():
 
 
 # Loop ------------------------------------------------------------ #
+def menu_loop():
+    # Loop
+    run = True
+    while run:
+        # Event loop
+        for event in pygame.event.get():
+            # Quit detection
+            if event.type == pygame.QUIT:
+                # Update options settings' JSON
+                options_settings = {
+                    "score_to_win": options.scoretowin_buttons,
+                    "who_starts_after_a_point": options.startsafterpoint_buttons,
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                }
+                window.update_optionssettings(options_settings)
+
+                # Turn off the loop
+                run = False
+
+            # Mouse buttons' down detection
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
+                btn_pressed = menu.buttons.button_down_detection()
+                if btn_pressed == "play":  # the button pressed is the PLAY button
+                    menu.buttons.reset_overdetection()
+                    game_loop()
+                elif btn_pressed == "options":  # the button pressed is the OPTIONS button
+                    menu.buttons.reset_overdetection()
+                    options_loop("menu")
+                elif btn_pressed == "quit":  # the button pressed is the QUIT button
+                    run = False
+
+            # Menu buttons' over detection
+            if event.type == pygame.MOUSEMOTION:
+                menu.buttons.button_over_detection()
+
+        # Update display
+        redraw_menu()
+        clock.tick(window.framerate)
+        
+    pygame.quit()
+    sys.exit()
+
+
+def gamemode_loop():
+    # Loop
+    run = True
+    while run:
+        # Event loop
+        for event in pygame.event.get():
+            # Quit detection
+            if event.type == pygame.QUIT:
+                # Update options settings' JSON
+                options_settings = {
+                    "score_to_win": options.scoretowin_buttons,
+                    "who_starts_after_a_point": options.startsafterpoint_buttons,
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                }
+                window.update_optionssettings(options_settings)
+
+                # Turn off the loop
+                run = False
+
+        # Update display
+        redraw_gamemode()
+        clock.tick(window.framerate)
+
+    pygame.quit()
+    sys.exit()
+
+
 def game_loop():
     # Update paddles' sensitivity
     sensitivity = options.keyboardsensitivity_buttons.get_sensitivity_value()
@@ -228,49 +310,6 @@ def game_loop():
         redraw_game()
         clock.tick(window.framerate)
 
-    pygame.quit()
-    sys.exit()
-
-
-def menu_loop():
-    # Loop
-    run = True
-    while run:
-        # Event loop
-        for event in pygame.event.get():
-            # Quit detection
-            if event.type == pygame.QUIT:
-                # Update options settings' JSON
-                options_settings = {
-                    "score_to_win": options.scoretowin_buttons,
-                    "who_starts_after_a_point": options.startsafterpoint_buttons,
-                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
-                }
-                window.update_optionssettings(options_settings)
-
-                # Turn off the loop
-                run = False
-
-            # Mouse buttons' down detection
-            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
-                btn_pressed = menu.buttons.button_down_detection()
-                if btn_pressed == "play":  # the button pressed is the PLAY button
-                    menu.buttons.reset_overdetection()
-                    game_loop()
-                elif btn_pressed == "options":  # the button pressed is the OPTIONS button
-                    menu.buttons.reset_overdetection()
-                    options_loop("menu")
-                elif btn_pressed == "quit":  # the button pressed is the QUIT button
-                    run = False
-
-            # Menu buttons' over detection
-            if event.type == pygame.MOUSEMOTION:
-                menu.buttons.button_over_detection()
-
-        # Update display
-        redraw_menu()
-        clock.tick(window.framerate)
-        
     pygame.quit()
     sys.exit()
 
@@ -440,6 +479,7 @@ def gameover_loop():
     sys.exit()
 
 
+# Execute --------------------------------------------------------- #
 if __name__ == "__main__":
     pygame.init()
 
@@ -477,4 +517,4 @@ if __name__ == "__main__":
     ball = Ball()
 
     # Execute
-    menu_loop()
+    gamemode_loop()
