@@ -1,5 +1,6 @@
 from windows import window
 from .title import Title
+from .buttons import Buttons
 import pygame
 
 pygame.init()
@@ -16,6 +17,7 @@ class GameMode:
             pygame.SRCALPHA)
 
         self.title = Title()
+        self.buttons = Buttons(self.display_size_divider)
 
     def draw(self, display):
         # Fill gamemode's display with a transparent background
@@ -23,6 +25,7 @@ class GameMode:
 
         # Draw gamemode window on gamemode's display
         self.title.draw(self.display)
+        self.buttons.draw(self.display)
 
         # Blit gamemode's display to original display
         resized_gamemode_display = pygame.transform.scale(
