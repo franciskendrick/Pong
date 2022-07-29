@@ -156,15 +156,15 @@ def menu_loop():
                 # Turn off the loop
                 run = False
 
-            # Mouse buttons' down detection
+            # Menu buttons' down detection
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
                 btn_pressed = menu.buttons.button_down_detection()
                 if btn_pressed == "play":  # the button pressed is the PLAY button
-                    menu.buttons.reset_overdetection()
-                    game_loop()
+                    menu.buttons.reset_overdetection()  # reset menu's buttons' over detection
+                    gamemode_loop()  # redirect to gamemode loop
                 elif btn_pressed == "options":  # the button pressed is the OPTIONS button
-                    menu.buttons.reset_overdetection()
-                    options_loop("menu")
+                    menu.buttons.reset_overdetection()  # reset menu's buttons' over detection
+                    options_loop("menu")  # redirect to options loop
                 elif btn_pressed == "quit":  # the button pressed is the QUIT button
                     run = False
 
@@ -181,6 +181,12 @@ def menu_loop():
 
 
 def gamemode_loop():
+    # Initialize gamemode's buttons switchcase
+    btn_switchcase = {
+        "singleplayer": [],
+        "multiplayer": [game_reset, game_loop],
+    }
+    
     # Loop
     run = True
     while run:
@@ -198,6 +204,17 @@ def gamemode_loop():
 
                 # Turn off the loop
                 run = False
+
+            # GameMode buttons' down detection
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
+                btn_pressed = gamemode.buttons.button_down_detection()
+                if btn_pressed != None:
+                    for function in btn_switchcase[btn_pressed]:
+                        function()
+
+            # GameMode buttons' over detection
+            if event.type == pygame.MOUSEMOTION:
+                gamemode.buttons.button_over_detection()
 
         # Update display
         redraw_gamemode()
@@ -322,8 +339,14 @@ def game_loop():
 def options_loop(from_loop):
     # Initialize options' buttons switchcase
     backbtn_switchcase = {
-        "menu": [menu_loop],
-        "gameover": [gameover_loop]
+        "menu": [
+            options.reset_overdetection,  # reset options' buttons' over detection
+            menu_loop  # redirect to menu loop
+        ],
+        "gameover": [
+            options.reset_overdetection,  # reset options' buttons' over detection
+            gameover_loop  # redirect to gameover loop
+        ]
     }
     btn_switchcase = {
         "back": backbtn_switchcase[from_loop],
@@ -349,7 +372,7 @@ def options_loop(from_loop):
                 # Turn off the loop
                 run = False
 
-            # Mouse buttons' down detection
+            # Options buttons' down detection
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been downed
                 # Game settings buttons' down detection
                 options.scoretowin_buttons.button_down_detection(options)
@@ -360,10 +383,9 @@ def options_loop(from_loop):
                 btn_pressed = options.miscellaneous_buttons.button_down_detection()
                 if btn_pressed != None:
                     for function in btn_switchcase[btn_pressed]:
-                        options.reset_overdetection()
                         function()
 
-            # Mouse buttons' over detection
+            # Options buttons' over detection
             if event.type == pygame.MOUSEMOTION:
                 options.scoretowin_buttons.button_over_detection()
                 options.startsafterpoint_buttons.button_over_detection()
@@ -381,8 +403,15 @@ def options_loop(from_loop):
 def pause_loop():
     # Initialize pause's buttons switchcase
     btn_switchcase = {
-        "play": [game_loop],
-        "menu": [game_reset, menu_loop]
+        "play": [
+            pause.buttons.reset_overdetection,  # reset pause's buttons' over detection
+            game_loop  # redirect to game loop
+        ],
+        "menu": [
+            pause.buttons.reset_overdetection,  # reset pause's buttons' over detection
+            game_reset,  # reset game variables
+            menu_loop   # redirect to menu loop
+        ]
     }
 
     # Loop
@@ -403,15 +432,14 @@ def pause_loop():
                 # Turn off the loop
                 run = False
 
-            # Mouse buttons' down detection
+            # Pause buttons' down detection
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been uped
                 btn_pressed = pause.buttons.button_down_detection()
                 if btn_pressed != None:
                     for function in btn_switchcase[btn_pressed]:
-                        pause.buttons.reset_overdetection()
                         function()
 
-            # Mouse buttons' over detection
+            # Pause buttons' over detection
             if event.type == pygame.MOUSEMOTION:
                 pause.buttons.button_over_detection()
 
@@ -434,11 +462,15 @@ def gameover_loop():
     btn_switchcase = {
         "play": [
             gameover.buttons.reset_rect,  # reset gameover's buttons' rectangles
-            game_reset, game_loop  # redirect to game
+            gameover.buttons.reset_overdetection,  # reset gameover's buttons' over detection
+            game_reset,  # reset game variables
+            game_loop  # redirect to game loop
         ],
         "menu": [ 
             gameover.buttons.reset_rect,  # reset gameover's buttons' rectangles
-            game_reset, menu_loop  # redirect to menu
+            gameover.buttons.reset_overdetection,  # reset gameover's buttons' over detection
+            game_reset,  # reset game variables
+            menu_loop  # redirect to menu loop
         ]
     }
 
@@ -460,19 +492,18 @@ def gameover_loop():
                 # Turn off the loop
                 run = False
 
-            # Mouse buttons' down detection
+            # GameOver buttons' down detection
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 btn_pressed = gameover.buttons.button_down_detection()
                 if btn_pressed != None:  # a button has been pressed
                     if btn_pressed == "options":
-                        gameover.buttons.reset_overdetection()
-                        options_loop("gameover")
+                        gameover.buttons.reset_overdetection()  # reset gameover's buttons' over detection
+                        options_loop("gameover")  # redirect to options' loop
                     else:
                         for function in btn_switchcase[btn_pressed]:
-                            gameover.buttons.reset_overdetection()
                             function()
 
-            # Mouse buttons' over detection
+            # GameOver buttons' over detection
             if event.type == pygame.MOUSEMOTION:
                 gameover.buttons.button_over_detection()
 
@@ -524,4 +555,4 @@ if __name__ == "__main__":
     ball = Ball()
 
     # Execute
-    gamemode_loop()
+    menu_loop()
