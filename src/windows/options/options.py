@@ -1,11 +1,20 @@
+# Import utils
 from utils import separate_sets_from_yaxis
+
+# Import window module
 from windows import window
+
+# Import options' titles
 from .title import Title
 from .subtitle import Subtitle
+
+# Import options' buttons
 from .scoretowin_btns import ScoreToWinButtons
 from .startsafterpoint_btns import StartsAfterPointButtons
 from .keybrsensitivity_btns import SensitivityButtons
 from .miscellaneous_btns import MiscellaneousButtons
+
+# Import libraries
 import pygame
 import json
 import os

@@ -1,9 +1,22 @@
+# Import window module
 from windows import window
-from windows import Menu, Game, Options, Pause, GameOver
+
+# Import main windows
+from windows import Menu
 from windows import GameMode
+from windows import Game
+from windows import Options
+from windows import Pause
+from windows import GameOver
+
+# Import audio
 from audio import Sound
+
+# Import game entities
 from entities import Paddle
 from entities import Ball
+
+# Import libraries
 import pygame
 import time
 import sys
@@ -531,12 +544,11 @@ if __name__ == "__main__":
 
     # Initialize windows
     menu = Menu()
+    gamemode = GameMode()
     game = Game()
     options = Options()
     pause = Pause()
     gameover = GameOver()
-
-    gamemode = GameMode()
 
     # Initialize paddle
     sensitivity = options.keyboardsensitivity_buttons.get_sensitivity_value()
