@@ -1,6 +1,7 @@
 from windows import window
 from windows import Menu, Game, Options, Pause, GameOver
 from windows import GameMode
+from audio import Sound
 from entities import Paddle
 from entities import Ball
 import pygame
