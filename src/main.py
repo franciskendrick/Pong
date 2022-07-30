@@ -48,7 +48,7 @@ def redraw_menu():
     pygame.display.update()
 
 
-def redraw_gamemode():
+def redraw_set_gamemode():
     # Draw background
     display.fill(window.white)
     window.draw_playablesurface(display)
@@ -177,7 +177,7 @@ def menu_loop():
                 if btn_pressed == "play":  # the button pressed is the PLAY button
                     sound.play_buttonclick()  # play sound
                     menu.buttons.reset_overdetection()  # reset menu's buttons' over detection
-                    gamemode_loop()  # redirect to gamemode loop
+                    set_gamemode_loop()  # redirect to gamemode loop
                 elif btn_pressed == "options":  # the button pressed is the OPTIONS button
                     sound.play_buttonclick()  # play sound
                     menu.buttons.reset_overdetection()  # reset menu's buttons' over detection
@@ -198,7 +198,7 @@ def menu_loop():
     sys.exit()
 
 
-def gamemode_loop():
+def set_gamemode_loop():
     # Initialize gamemode's buttons switchcase
     btn_switchcase = {
         "singleplayer": [],
@@ -241,7 +241,7 @@ def gamemode_loop():
                 gamemode.buttons.button_over_detection()
 
         # Update display
-        redraw_gamemode()
+        redraw_set_gamemode()
         clock.tick(window.framerate)
 
     pygame.quit()
