@@ -174,12 +174,15 @@ def menu_loop():
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
                 btn_pressed = menu.buttons.button_down_detection()
                 if btn_pressed == "play":  # the button pressed is the PLAY button
+                    sound.play_buttonclick()  # play sound
                     menu.buttons.reset_overdetection()  # reset menu's buttons' over detection
                     gamemode_loop()  # redirect to gamemode loop
                 elif btn_pressed == "options":  # the button pressed is the OPTIONS button
+                    sound.play_buttonclick()  # play sound
                     menu.buttons.reset_overdetection()  # reset menu's buttons' over detection
                     options_loop("menu")  # redirect to options loop
                 elif btn_pressed == "quit":  # the button pressed is the QUIT button
+                    sound.play_buttonclick()  # play sound
                     run = False
 
             # Menu buttons' over detection
@@ -198,7 +201,12 @@ def gamemode_loop():
     # Initialize gamemode's buttons switchcase
     btn_switchcase = {
         "singleplayer": [],
-        "multiplayer": [game_reset, game_loop],
+        "multiplayer": [
+            sound.play_buttonclick,  # play sound
+            gamemode.buttons.reset_overdetection,  # reset gamemode's buttons' over detection
+            game_reset,  # reset game variables
+            game_loop  # redirect to game loop
+        ],
     }
     
     # Loop
@@ -371,17 +379,22 @@ def options_loop(from_loop):
     # Initialize options' buttons switchcase
     backbtn_switchcase = {
         "menu": [
+            sound.play_buttonclick,  # play sound
             options.reset_overdetection,  # reset options' buttons' over detection
             menu_loop  # redirect to menu loop
         ],
         "gameover": [
+            sound.play_buttonclick,  # play sound
             options.reset_overdetection,  # reset options' buttons' over detection
             gameover_loop  # redirect to gameover loop
         ]
     }
     btn_switchcase = {
         "back": backbtn_switchcase[from_loop],
-        "reset": [options.reset]
+        "reset": [
+            sound.play_buttonclick,  # play sound
+            options.reset  # reset options settings
+        ]
     }
 
     # Loop
@@ -413,6 +426,7 @@ def options_loop(from_loop):
                 btn_pressed = options.miscellaneous_buttons.button_down_detection()
                 if btn_pressed != None:  # a button has been pressed
                     if btn_pressed == "sound":
+                        sound.play_buttonclick()  # play sound
                         options_buttons = options.miscellaneous_buttons.buttons
                         sound.update(options_buttons)
                     else:
@@ -438,10 +452,12 @@ def pause_loop():
     # Initialize pause's buttons switchcase
     btn_switchcase = {
         "play": [
+            sound.play_buttonclick,  # play sound
             pause.buttons.reset_overdetection,  # reset pause's buttons' over detection
             game_loop  # redirect to game loop
         ],
         "menu": [
+            sound.play_buttonclick,  # play sound
             pause.buttons.reset_overdetection,  # reset pause's buttons' over detection
             game_reset,  # reset game variables
             menu_loop   # redirect to menu loop
@@ -495,12 +511,14 @@ def gameover_loop():
     # Initialize gameover's buttons switchcase
     btn_switchcase = {
         "play": [
+            sound.play_buttonclick,  # play sound
             gameover.buttons.reset_rect,  # reset gameover's buttons' rectangles
             gameover.buttons.reset_overdetection,  # reset gameover's buttons' over detection
             game_reset,  # reset game variables
             game_loop  # redirect to game loop
         ],
         "menu": [ 
+            sound.play_buttonclick,  # play sound
             gameover.buttons.reset_rect,  # reset gameover's buttons' rectangles
             gameover.buttons.reset_overdetection,  # reset gameover's buttons' over detection
             game_reset,  # reset game variables

@@ -18,6 +18,8 @@ class Sound:
         self.buttonclick_sound = pygame.mixer.Sound(
             f"{resources_path}/ES_Switch Click 5 - SFX Producer.mp3")
 
+        self.buttonclick_sound.set_volume(0.35)
+
         # Window redirect audios
         self.pause_sound = pygame.mixer.Sound(
             f"{resources_path}/envatoelements_pause.mp3")
@@ -41,7 +43,7 @@ class Sound:
     # Play -------------------------------------------------------- #
     def play_buttonclick(self):
         if self.playing:
-            self.buttonclick_sound_sound.play()
+            self.buttonclick_sound.play()
     
     def play_pause(self):
         if self.playing:
@@ -61,4 +63,4 @@ class Sound:
 
     # Update ------------------------------------------------------ #
     def update(self, options_buttons):
-        self.playing = not options_buttons["sound"][1]
+        self.playing = options_buttons["sound"][1]
