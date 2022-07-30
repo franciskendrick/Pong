@@ -13,7 +13,7 @@ resources_path = os.path.abspath(
 
 class Sound:
     # Initialize -------------------------------------------------- #
-    def __init__(self, sound_settings):
+    def __init__(self, options_buttons):
         # Audios
         self.buttonclick_sound = pygame.mixer.Sound(
             f"{resources_path}/ES_Switch Click 5 - SFX Producer.mp3")
@@ -29,7 +29,7 @@ class Sound:
             f"{resources_path}/mixkit_missedshot.mp3")
 
         # Is playing variable
-        self.playing = True
+        self.playing = not options_buttons["sound"][1]
 
     # Play -------------------------------------------------------- #
     def play_buttonclick(self):
@@ -53,5 +53,5 @@ class Sound:
             self.missedshot_sound.play()
 
     # Update ------------------------------------------------------ #
-    def update(self, sound_settings):
-        pass
+    def update(self, options_buttons):
+        self.playing = not options_buttons["sound"][1]

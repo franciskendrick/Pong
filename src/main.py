@@ -364,8 +364,7 @@ def options_loop(from_loop):
     }
     btn_switchcase = {
         "back": backbtn_switchcase[from_loop],
-        "reset": [options.reset],
-        "sound": []  # !!!
+        "reset": [options.reset]
     }
 
     # Loop
@@ -387,7 +386,7 @@ def options_loop(from_loop):
                 run = False
 
             # Options buttons' down detection
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been downed
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been downed
                 # Game settings buttons' down detection
                 options.scoretowin_buttons.button_down_detection(options)
                 options.startsafterpoint_buttons.button_down_detection()
@@ -395,9 +394,13 @@ def options_loop(from_loop):
 
                 # Miscellaneous buttons' down detection
                 btn_pressed = options.miscellaneous_buttons.button_down_detection()
-                if btn_pressed != None:
-                    for function in btn_switchcase[btn_pressed]:
-                        function()
+                if btn_pressed != None:  # a button has been pressed
+                    if btn_pressed == "sound":
+                        options_buttons = options.miscellaneous_buttons.buttons
+                        sound.update(options_buttons)
+                    else:
+                        for function in btn_switchcase[btn_pressed]:
+                            function()
 
             # Options buttons' over detection
             if event.type == pygame.MOUSEMOTION:
@@ -447,7 +450,7 @@ def pause_loop():
                 run = False
 
             # Pause buttons' down detection
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # left-click has been uped
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
                 btn_pressed = pause.buttons.button_down_detection()
                 if btn_pressed != None:
                     for function in btn_switchcase[btn_pressed]:
@@ -549,6 +552,10 @@ if __name__ == "__main__":
     options = Options()
     pause = Pause()
     gameover = GameOver()
+
+    # Initialize audio
+    options_buttons = options.miscellaneous_buttons.buttons
+    sound = Sound(options_buttons)
 
     # Initialize paddle
     sensitivity = options.keyboardsensitivity_buttons.get_sensitivity_value()

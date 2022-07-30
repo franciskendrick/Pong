@@ -87,6 +87,8 @@ class MiscellaneousButtons:
 
             mouse_pos = pygame.mouse.get_pos()
             if hitbox.collidepoint(mouse_pos):
+                if name == "sound":
+                    button[1] = not button[1]
                 return name
 
     def button_over_detection(self):
