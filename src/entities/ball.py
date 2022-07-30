@@ -32,25 +32,33 @@ class Ball:
         pygame.draw.rect(display, window.white, self.rect)
 
     # Update ------------------------------------------------------ #
-    def update(self, paddles):
+    def update(self, paddles, sound):
         self.movement()
-        self.edge_collisions()
-        self.paddle_collisions(paddles)
+        self.edge_collisions(sound)
+        self.paddle_collisions(paddles, sound)
 
     def movement(self):
         self.rect.x += self.x_vel
         self.rect.y += self.y_vel
 
-    def edge_collisions(self):
+    def edge_collisions(self, sound):
         handle_rect = self.rect.copy()
         handle_rect.x += self.x_vel
         handle_rect.y += self.y_vel
         if handle_rect.bottom >= window.playable_rect.bottom:
-            self.y_vel *= -1
-        elif handle_rect.top <= window.playable_rect.top:
+            # Update y velocity
             self.y_vel *= -1
 
-    def paddle_collisions(self, paddles):
+            # Play sound
+            sound.play_ballcollision()
+        elif handle_rect.top <= window.playable_rect.top:
+            # Update y velocity
+            self.y_vel *= -1
+
+            # Play sound
+            sound.play_ballcollision()
+
+    def paddle_collisions(self, paddles, sound):
         if self.x_vel < 0:  # ball is going LEFT
             if (self.rect.centery >= paddles["left"].rect.top) and ( 
                     self.rect.centery <= paddles["left"].rect.bottom) and (
@@ -65,6 +73,9 @@ class Ball:
                 new_y_vel = difference_in_y / reduction_factor
                 self.y_vel = -1 * new_y_vel
 
+                # Play sound
+                sound.play_ballcollision()
+
         else:  # ball is going RIGHT
             if (self.rect.centery >= paddles["right"].rect.top) and (
                     self.rect.centery <= paddles["right"].rect.bottom) and (
@@ -78,6 +89,9 @@ class Ball:
                 reduction_factor = (paddles["right"].rect.height / 2) / self.max_vel
                 new_y_vel = difference_in_y / reduction_factor
                 self.y_vel = -1 * new_y_vel
+
+                # Play sound
+                sound.play_ballcollision()
 
     # Functions --------------------------------------------------- #
     def round_reset(self, whos_ball):

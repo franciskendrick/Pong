@@ -278,8 +278,8 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 # Pause
                 if event.key == pygame.K_ESCAPE:
-                    sound.play_pause()
-                    pause_loop()
+                    sound.play_pause()  # play sound
+                    pause_loop()  # redirect to pause loop
         
         # Update paddles
         for (side, paddle) in paddles.items():
@@ -288,12 +288,15 @@ def game_loop():
         # Update ball
         if not game.round_finished:
             # Update ball
-            ball.update(paddles)
+            ball.update(paddles, sound)
 
             # Check for round winner
             if ball.rect.centerx <= window.playable_rect.left:  # left player lost
                 # Update time of round end variable
                 game.time_of_round_end = time.perf_counter()
+
+                # Play sound
+                sound.play_missedshot()
 
                 # Update ball's position so it would be out of the screen
                 ball.rect.right = window.playable_rect.left
@@ -306,6 +309,9 @@ def game_loop():
             elif ball.rect.centerx >= window.playable_rect.right:  # right player lost
                 # Update time of round end variable
                 game.time_of_round_end = time.perf_counter()
+
+                # Play sound
+                sound.play_missedshot()
 
                 # Update ball's position so it would be out of the screen
                 ball.rect.left = window.playable_rect.right

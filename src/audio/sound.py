@@ -32,6 +32,9 @@ class Sound:
         self.missedshot_sound = pygame.mixer.Sound(
             f"{resources_path}/mixkit_missedshot.mp3")
 
+        self.ballcollision_sound.set_volume(0.5)
+        self.missedshot_sound.set_volume(0.5)
+
         # Is playing variable
         self.playing = not options_buttons["sound"][1]
 
