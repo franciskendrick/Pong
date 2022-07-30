@@ -52,14 +52,17 @@ class Window:
         # Get handle options settings
         handle_optionssettings = self.options_settings.copy()
 
-        # Edit options settings
+        # Edit options' game settings
         for json_key, options_value in zip(
                 handle_optionssettings.keys(), options_settings.values()):
-
             for (name, button) in options_value.buttons.items():
                 if button[1]:  # buttons' toggle status is True
                     handle_optionssettings[json_key] = name
                     break
+
+        # Edit options' sound settings
+        sound_status = not options_settings["miscellaneous"].buttons["sound"][1]
+        handle_optionssettings["sound"] = sound_status
 
         # Dump handle options settings to the JSON file
         with open(f"{resources_path}/options_settings.json", "w") as json_file:

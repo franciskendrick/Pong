@@ -37,7 +37,8 @@ class Options:
     original_optionssettings = {
         "score_to_win": "10",
         "who_starts_after_a_point": "losers_ball",
-        "keyboard_sensitivity": "normal"
+        "keyboard_sensitivity": "normal",
+        "sound": True
     }
     display_size_divider = 3
 

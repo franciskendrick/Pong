@@ -163,7 +163,8 @@ def menu_loop():
                 options_settings = {
                     "score_to_win": options.scoretowin_buttons,
                     "who_starts_after_a_point": options.startsafterpoint_buttons,
-                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons,
+                    "miscellaneous": options.miscellaneous_buttons
                 }
                 window.update_optionssettings(options_settings)
 
@@ -220,7 +221,8 @@ def gamemode_loop():
                 options_settings = {
                     "score_to_win": options.scoretowin_buttons,
                     "who_starts_after_a_point": options.startsafterpoint_buttons,
-                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons,
+                    "miscellaneous": options.miscellaneous_buttons
                 }
                 window.update_optionssettings(options_settings)
 
@@ -275,7 +277,8 @@ def game_loop():
                 options_settings = {
                     "score_to_win": options.scoretowin_buttons,
                     "who_starts_after_a_point": options.startsafterpoint_buttons,
-                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons,
+                    "miscellaneous": options.miscellaneous_buttons
                 }
                 window.update_optionssettings(options_settings)
 
@@ -408,7 +411,8 @@ def options_loop(from_loop):
                 options_settings = {
                     "score_to_win": options.scoretowin_buttons,
                     "who_starts_after_a_point": options.startsafterpoint_buttons,
-                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons,
+                    "miscellaneous": options.miscellaneous_buttons
                 }
                 window.update_optionssettings(options_settings)
 
@@ -475,7 +479,8 @@ def pause_loop():
                 options_settings = {
                     "score_to_win": options.scoretowin_buttons,
                     "who_starts_after_a_point": options.startsafterpoint_buttons,
-                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons,
+                    "miscellaneous": options.miscellaneous_buttons
                 }
                 window.update_optionssettings(options_settings)
 
@@ -537,7 +542,8 @@ def gameover_loop():
                 options_settings = {
                     "score_to_win": options.scoretowin_buttons,
                     "who_starts_after_a_point": options.startsafterpoint_buttons,
-                    "keyboard_sensitivity": options.keyboardsensitivity_buttons
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons,
+                    "miscellaneous": options.miscellaneous_buttons
                 }
                 window.update_optionssettings(options_settings)
 

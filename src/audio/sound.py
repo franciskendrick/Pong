@@ -63,4 +63,4 @@ class Sound:
 
     # Update ------------------------------------------------------ #
     def update(self, options_buttons):
-        self.playing = options_buttons["sound"][1]
+        self.playing = not options_buttons["sound"][1]

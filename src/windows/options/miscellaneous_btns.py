@@ -38,6 +38,12 @@ class MiscellaneousButtons:
         # Buttons
         self.buttons = {}
         for name, img in zip(order, images):
+            # Initialize toggle status
+            if name == "sound":
+                toggle_status = not window.options_settings["sound"]
+            else:
+                toggle_status = False
+            
             # Initialize palette swapped images
             palette_swapped_images = {}
             for (type, palette) in palettes.items():
@@ -57,7 +63,7 @@ class MiscellaneousButtons:
             # Append to buttons
             button = [
                 False,  # if mouse is over
-                False,  # toggle status
+                toggle_status,  # toggle status
                 palette_swapped_images,  # palette swapped images
                 rect,  # image's rectangle
                 hitbox  # hitbox
