@@ -278,6 +278,7 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 # Pause
                 if event.key == pygame.K_ESCAPE:
+                    sound.play_pause()
                     pause_loop()
         
         # Update paddles
@@ -319,20 +320,30 @@ def game_loop():
             if game.scoreboard.scores["right"] >= options.score_limit:  # right player won
                 # Initialize the winning side
                 won_side = "right"
+
+                # Initialize gameover's rectangles
                 gameover.title.init_rect(won_side)
                 gameover.buttons.init_rect(
                     won_side, GameOver.display_size_divider)
 
+                # Play sound 
+                sound.play_win()
+
+                # Redirect to gameover loop
                 gameover_loop()
             elif game.scoreboard.scores["left"] >= options.score_limit:  # left player won
                 # Initialize the winning side
                 won_side = "left"
 
-                # Initialize the 
+                # Initialize gameover's rectangles
                 gameover.title.init_rect(won_side)
                 gameover.buttons.init_rect(
                     won_side, GameOver.display_size_divider)
 
+                # Play sound 
+                sound.play_win()
+
+                # Redirect to gameover loop
                 gameover_loop()
         else:
             # Reset ball 1.5 seconds after round winner has been declared

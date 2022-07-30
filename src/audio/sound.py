@@ -14,15 +14,19 @@ resources_path = os.path.abspath(
 class Sound:
     # Initialize -------------------------------------------------- #
     def __init__(self, options_buttons):
-        # Audios
+        # Button click audio
         self.buttonclick_sound = pygame.mixer.Sound(
             f"{resources_path}/ES_Switch Click 5 - SFX Producer.mp3")
 
+        # Window redirect audios
         self.pause_sound = pygame.mixer.Sound(
             f"{resources_path}/envatoelements_pause.mp3")
         self.win_sound = pygame.mixer.Sound(
             f"{resources_path}/mixkit_win.mp3")
 
+        self.win_sound.set_volume(0.25)
+
+        # Game audios
         self.ballcollision_sound = pygame.mixer.Sound(
             f"{resources_path}/mixkit_ballcollision.mp3")
         self.missedshot_sound = pygame.mixer.Sound(
