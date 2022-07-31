@@ -15,11 +15,14 @@ class Difficulty:
             ht // self.display_size_divider), 
             pygame.SRCALPHA)
 
+        self.title = Title()
+
     def draw(self, display):
         # Fill difficulty's display with a transparent background
         self.display.fill((0, 0, 0, 0))
 
         # Draw difficulty window on difficulty's display
+        self.title.draw(self.display)
 
         # Blit difficulty's display to original display
         resized_difficulty_display = pygame.transform.scale(
