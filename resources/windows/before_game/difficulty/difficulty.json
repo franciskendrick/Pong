@@ -1,3 +1,8 @@
 {
-    "title_position": [25, 19]
+    "title_position": [25, 19],
+    "buttons_positions": {
+        "easy": [61, 36],
+        "medium": [61, 48],
+        "hard": [61, 60]
+    }
 }
