@@ -1,2 +1,1 @@
-from .gamemode import GameMode
 from .difficulty import Difficulty
