@@ -4,6 +4,7 @@ from windows import window
 # Import main windows
 from windows import Menu
 from windows import GameMode
+from windows import Difficulty
 from windows import Game
 from windows import Options
 from windows import Pause
@@ -55,6 +56,21 @@ def redraw_set_gamemode():
 
     # Draw gamemode
     gamemode.draw(display)
+
+    # Blit to window ---------------------------------------------- #
+    resized_display = pygame.transform.scale(display, win_size)
+    win.blit(resized_display, (0, 0))
+
+    pygame.display.update()
+
+
+def redraw_set_difficulty():
+    # Draw background
+    display.fill(window.white)
+    window.draw_playablesurface(display)
+
+    # Draw difficulty
+    difficulty.draw(display)
 
     # Blit to window ---------------------------------------------- #
     resized_display = pygame.transform.scale(display, win_size)
@@ -242,6 +258,34 @@ def set_gamemode_loop():
 
         # Update display
         redraw_set_gamemode()
+        clock.tick(window.framerate)
+
+    pygame.quit()
+    sys.exit()
+
+
+def set_difficulty_loop():
+    # Loop
+    run = True
+    while run:
+        # Event loop
+        for event in pygame.event.get():
+            # Quit detection
+            if event.type == pygame.QUIT:
+                # Update options settings' JSON
+                options_settings = {
+                    "score_to_win": options.scoretowin_buttons,
+                    "who_starts_after_a_point": options.startsafterpoint_buttons,
+                    "keyboard_sensitivity": options.keyboardsensitivity_buttons,
+                    "miscellaneous": options.miscellaneous_buttons
+                }
+                window.update_optionssettings(options_settings)
+
+                # Turn off the loop
+                run = False
+
+        # Update display
+        redraw_set_difficulty()
         clock.tick(window.framerate)
 
     pygame.quit()
@@ -589,6 +633,7 @@ if __name__ == "__main__":
     # Initialize windows
     menu = Menu()
     gamemode = GameMode()
+    difficulty = Difficulty()
     game = Game()
     options = Options()
     pause = Pause()
@@ -616,4 +661,4 @@ if __name__ == "__main__":
     ball = Ball()
 
     # Execute
-    menu_loop()
+    set_difficulty_loop()
