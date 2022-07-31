@@ -217,7 +217,10 @@ def menu_loop():
 def set_gamemode_loop():
     # Initialize gamemode's buttons switchcase
     btn_switchcase = {
-        "singleplayer": [],
+        "singleplayer": [  # !!!
+            sound.play_buttonclick,  # play sound
+            gamemode.buttons.reset_overdetection,  # reset gamemode's buttons' over detection
+        ],
         "multiplayer": [
             sound.play_buttonclick,  # play sound
             gamemode.buttons.reset_overdetection,  # reset gamemode's buttons' over detection
@@ -265,6 +268,13 @@ def set_gamemode_loop():
 
 
 def set_difficulty_loop():
+    # Initialize difficulty's buttons switchcase
+    btn_switchcase = {
+        "easy": [],  # !!!
+        "medium": [],  # !!!
+        "hard": [],  # !!!
+    }
+
     # Loop
     run = True
     while run:
@@ -283,6 +293,17 @@ def set_difficulty_loop():
 
                 # Turn off the loop
                 run = False
+
+            # Difficulty buttons' down detection
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
+                btn_pressed = difficulty.buttons.button_down_detection()
+                if btn_pressed != None:
+                    for function in btn_switchcase[btn_pressed]:
+                        function()
+
+            # Difficulty buttons' over detection
+            if event.type == pygame.MOUSEMOTION:
+                difficulty.buttons.button_over_detection()
 
         # Update display
         redraw_set_difficulty()
