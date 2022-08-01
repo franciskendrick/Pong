@@ -1,4 +1,5 @@
 import pygame
+import time
 import json
 import os
 
@@ -40,6 +41,10 @@ class Window:
         with open(f"{resources_path}/options_settings.json") as json_file:
             self.options_settings = json.load(json_file)
 
+        # Framerate
+        self.last_time = time.perf_counter()
+        self.update_deltatime()
+
     # Draw -------------------------------------------------------- #
     def draw_playablesurface(self, display):
         pygame.draw.rect(display, self.black, self.playable_rect)
@@ -67,7 +72,11 @@ class Window:
         # Dump handle options settings to the JSON file
         with open(f"{resources_path}/options_settings.json", "w") as json_file:
             json.dump(handle_optionssettings, json_file)
-            
+
+    def update_deltatime(self):
+        self.delta_time = time.perf_counter() - self.last_time
+        self.delta_time *= 60
+        self.last_time = time.perf_counter()
 
 
 window = Window()

@@ -34,19 +34,19 @@ class Paddle:
         if keys[buttons["up"]]:
             # Get a hitbox handle
             handle_hitbox = self.rect.copy()
-            handle_hitbox.y -= self.vel
+            handle_hitbox.y -= self.vel * window.delta_time
             # Check for playable rectangle and hitbox collision
             if window.playable_rect.top < handle_hitbox.top:
-                self.rect.y -= self.vel
+                self.rect.y -= self.vel * window.delta_time
 
         # Down movement
         if keys[buttons["down"]]: 
             # Get a hitbox handle
             handle_hitbox = self.rect.copy()
-            handle_hitbox.y += self.vel
+            handle_hitbox.y += self.vel * window.delta_time
             # Check for playable rectangle and hitbox collision
             if window.playable_rect.bottom > handle_hitbox.bottom:
-                self.rect.y += self.vel
+                self.rect.y += self.vel* window.delta_time
 
     # Functions --------------------------------------------------- #
     def update_sensitivity(self, sensitivity):

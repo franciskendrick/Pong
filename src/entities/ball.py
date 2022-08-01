@@ -38,13 +38,13 @@ class Ball:
         self.paddle_collisions(paddles, sound)
 
     def movement(self):
-        self.rect.x += self.x_vel
-        self.rect.y += self.y_vel
+        self.rect.x += self.x_vel * window.delta_time
+        self.rect.y += self.y_vel * window.delta_time
 
     def edge_collisions(self, sound):
         handle_rect = self.rect.copy()
-        handle_rect.x += self.x_vel
-        handle_rect.y += self.y_vel
+        handle_rect.x += self.x_vel * window.delta_time
+        handle_rect.y += self.y_vel * window.delta_time
         if handle_rect.bottom >= window.playable_rect.bottom:
             # Update y velocity
             self.y_vel *= -1

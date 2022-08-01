@@ -171,6 +171,9 @@ def menu_loop():
     # Loop
     run = True
     while run:
+        # Update delta time
+        window.update_deltatime()
+
         # Event loop
         for event in pygame.event.get():
             # Quit detection
@@ -232,6 +235,9 @@ def set_gamemode_loop():
     # Loop
     run = True
     while run:
+        # Update delta time
+        window.update_deltatime()
+
         # Event loop
         for event in pygame.event.get():
             # Quit detection
@@ -278,6 +284,9 @@ def set_difficulty_loop():
     # Loop
     run = True
     while run:
+        # Update delta time
+        window.update_deltatime()
+
         # Event loop
         for event in pygame.event.get():
             # Quit detection
@@ -334,6 +343,9 @@ def game_loop():
     # Loop
     run = True
     while run:
+        # Update delta time
+        window.update_deltatime()
+
         # Event loop
         for event in pygame.event.get():
             # Quit detection
@@ -468,6 +480,9 @@ def options_loop(from_loop):
     # Loop
     run = True
     while run:
+        # Update delta time
+        window.update_deltatime()
+
         # Event loop
         for event in pygame.event.get():
             # Quit detection
@@ -536,6 +551,9 @@ def pause_loop():
     # Loop
     run = True
     while run:
+        # Update delta time
+        window.update_deltatime()
+
         # Event loop
         for event in pygame.event.get():
             # Quit detection
@@ -599,6 +617,9 @@ def gameover_loop():
     # Loop
     run = True
     while run:
+        # Update delta time
+        window.update_deltatime()
+
         # Event loop
         for event in pygame.event.get():
             # Quit detection
@@ -682,4 +703,4 @@ if __name__ == "__main__":
     ball = Ball()
 
     # Execute
-    set_difficulty_loop()
+    menu_loop()

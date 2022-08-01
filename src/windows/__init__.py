@@ -1,4 +1,4 @@
-from .windows import window
+from .window import window
 
 from .game import Game
 from .menu import Menu

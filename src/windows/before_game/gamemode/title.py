@@ -1,4 +1,5 @@
 from utils import clip_set_to_list_on_yaxis
+from windows import window
 import pygame
 import json
 import os
@@ -18,6 +19,8 @@ with open(f"{resources_path}/gamemode.json") as json_file:
 
 
 class Title:
+    orig_mult = 10
+
     def __init__(self):
         animation_set = pygame.image.load(
             f"{resources_path}/title_animation.png")
@@ -39,12 +42,17 @@ class Title:
             gamemode_data["title_position"], img.get_size())
 
     def draw(self, display):
+        # Get Multiplier
+        dt = round(window.delta_time)
+        dt_multiplier = round(self.orig_mult / dt) if dt > 0 else 0
+        multiplier = dt_multiplier if dt_multiplier > 0 else self.orig_mult
+
         # Reset
-        if self.idx >= len(self.frames) * 10:
+        if self.idx >= len(self.frames) * multiplier:
             self.idx = 0
 
         # Draw
-        img = self.frames[self.idx // 10]
+        img = self.frames[self.idx // multiplier]
         display.blit(img, self.rect)
 
         # Update
