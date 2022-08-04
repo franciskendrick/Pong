@@ -337,18 +337,6 @@ def game_loop():
     for paddle in paddles.values():
         paddle.update_sensitivity(sensitivity)
 
-    # Paddle's button keys
-    paddle_buttonkeys = {
-        "left": {
-            "up": pygame.K_w,
-            "down": pygame.K_s
-        },
-        "right": {
-            "up": pygame.K_UP,
-            "down": pygame.K_DOWN
-        }
-    }
-
     # Loop
     run = True
     while run:
@@ -379,8 +367,11 @@ def game_loop():
                     pause_loop()  # redirect to pause loop
         
         # Update paddles
-        for (side, paddle) in paddles.items():
-            paddle.movement(paddle_buttonkeys[side])
+        keys = pygame.key.get_pressed()
+        paddles["left"].movement(
+            keys[pygame.K_w], keys[pygame.K_s])
+        paddles["right"].movement(
+            keys[pygame.K_UP], keys[pygame.K_DOWN])
 
         # Update ball
         if not game.round_finished:

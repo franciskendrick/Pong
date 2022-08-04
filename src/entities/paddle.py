@@ -27,11 +27,9 @@ class Paddle:
         pygame.draw.rect(display, window.white, self.rect)
 
     # Update ------------------------------------------------------ #
-    def movement(self, buttons):
-        keys = pygame.key.get_pressed()
-
+    def movement(self, up, down):
         # Up movement
-        if keys[buttons["up"]]:
+        if up:
             # Get a hitbox handle
             handle_hitbox = self.rect.copy()
             handle_hitbox.y -= self.vel * window.delta_time
@@ -40,7 +38,7 @@ class Paddle:
                 self.rect.y -= self.vel * window.delta_time
 
         # Down movement
-        if keys[buttons["down"]]: 
+        if down: 
             # Get a hitbox handle
             handle_hitbox = self.rect.copy()
             handle_hitbox.y += self.vel * window.delta_time
