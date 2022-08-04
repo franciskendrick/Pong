@@ -59,16 +59,20 @@ class Ball:
             sound.play_ballcollision()
 
     def paddle_collisions(self, paddles, sound):
+        handle_rect = self.rect.copy()
+        handle_rect.x += self.x_vel * window.delta_time
+        handle_rect.y += self.y_vel * window.delta_time
+
         if self.x_vel < 0:  # ball is going LEFT
-            if (self.rect.centery >= paddles["left"].rect.top) and ( 
-                    self.rect.centery <= paddles["left"].rect.bottom) and (
-                    self.rect.left <= paddles["left"].rect.right):
+            if (handle_rect.centery >= paddles["left"].rect.top) and ( 
+                    handle_rect.centery <= paddles["left"].rect.bottom) and (
+                    handle_rect.left <= paddles["left"].rect.right):
                 
                 # Update x velocity
                 self.x_vel *= -1
 
                 # Update y velocity
-                difference_in_y = paddles["left"].rect.centery - self.rect.centery
+                difference_in_y = paddles["left"].rect.centery - handle_rect.centery
                 reduction_factor = (paddles["left"].rect.height / 2) / self.max_vel
                 new_y_vel = difference_in_y / reduction_factor
                 self.y_vel = -1 * new_y_vel
@@ -77,15 +81,15 @@ class Ball:
                 sound.play_ballcollision()
 
         else:  # ball is going RIGHT
-            if (self.rect.centery >= paddles["right"].rect.top) and (
-                    self.rect.centery <= paddles["right"].rect.bottom) and (
-                    self.rect.right >= paddles["right"].rect.left):
+            if (handle_rect.centery >= paddles["right"].rect.top) and (
+                    handle_rect.centery <= paddles["right"].rect.bottom) and (
+                    handle_rect.right >= paddles["right"].rect.left):
                 
                 # Update x velocity
                 self.x_vel *= -1
 
                 # Update y velocity
-                difference_in_y = paddles["right"].rect.centery - self.rect.centery
+                difference_in_y = paddles["right"].rect.centery - handle_rect.centery
                 reduction_factor = (paddles["right"].rect.height / 2) / self.max_vel
                 new_y_vel = difference_in_y / reduction_factor
                 self.y_vel = -1 * new_y_vel
