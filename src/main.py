@@ -202,6 +202,15 @@ def menu_loop():
                     menu.buttons.reset_overdetection()  # reset menu's buttons' over detection
                     options_loop("menu")  # redirect to options loop
                 elif btn_pressed == "quit":  # the button pressed is the QUIT button
+                    # Update options settings' JSON
+                    options_settings = {
+                        "score_to_win": options.scoretowin_buttons,
+                        "who_starts_after_a_point": options.startsafterpoint_buttons,
+                        "keyboard_sensitivity": options.keyboardsensitivity_buttons,
+                        "miscellaneous": options.miscellaneous_buttons
+                    }
+                    window.update_optionssettings(options_settings)
+
                     sound.play_buttonclick()  # play sound
                     run = False
 
