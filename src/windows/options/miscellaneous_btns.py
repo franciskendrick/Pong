@@ -22,7 +22,7 @@ with open(f"{resources_path}/options.json") as json_file:
 class MiscellaneousButtons:
     # Initialize -------------------------------------------------- #
     def __init__(self, display_size_divider, spriteset):
-        order = ["back", "reset", "sound"]
+        order = ["menu", "reset", "sound"]
         images = clip_set_to_list_on_xaxis(spriteset)
         enlarge = display_size_divider * window.enlarge
 

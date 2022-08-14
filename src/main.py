@@ -640,20 +640,12 @@ def mp_game_loop():
 
 def options_loop(from_loop):
     # Initialize options' buttons switchcase
-    backbtn_switchcase = {
+    btn_switchcase = {
         "menu": [
             sound.play_buttonclick,  # play sound
             options.reset_overdetection,  # reset options' buttons' over detection
             menu_loop  # redirect to menu loop
         ],
-        "gameover": [
-            sound.play_buttonclick,  # play sound
-            options.reset_overdetection,  # reset options' buttons' over detection
-            gameover_loop  # redirect to gameover loop
-        ]
-    }
-    btn_switchcase = {
-        "back": backbtn_switchcase[from_loop],
         "reset": [
             sound.play_buttonclick,  # play sound
             options.reset  # reset options settings
