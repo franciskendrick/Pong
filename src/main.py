@@ -67,21 +67,6 @@ def redraw_set_gamemode():
     pygame.display.update()
 
 
-def redraw_set_difficulty():
-    # Draw background
-    display.fill(window.white)
-    window.draw_playablesurface(display)
-
-    # Draw difficulty
-    difficulty.draw(display)
-
-    # Blit to window ---------------------------------------------- #
-    resized_display = pygame.transform.scale(display, win_size)
-    win.blit(resized_display, (0, 0))
-
-    pygame.display.update()
-
-
 def redraw_sp_game():
     # Draw background
     display.fill(window.white)
@@ -226,7 +211,7 @@ def menu_loop():
                 elif btn_pressed == "options":  # the button pressed is the OPTIONS button
                     sound.play_buttonclick()  # play sound
                     menu.buttons.reset_overdetection()  # reset menu's buttons' over detection
-                    options_loop("menu")  # redirect to options loop
+                    options_loop()  # redirect to options loop
                 elif btn_pressed == "quit":  # the button pressed is the QUIT button
                     # Update options settings' JSON
                     options_settings = {
@@ -304,55 +289,6 @@ def set_gamemode_loop():
 
         # Update display
         redraw_set_gamemode()
-        clock.tick(window.framerate)
-
-    pygame.quit()
-    sys.exit()
-
-
-def set_difficulty_loop():
-    # Initialize difficulty's buttons switchcase
-    btn_switchcase = {
-        "easy": [],  # !!!
-        "medium": [],  # !!!
-        "hard": [],  # !!!
-    }
-
-    # Loop
-    run = True
-    while run:
-        # Update delta time
-        window.update_deltatime()
-
-        # Event loop
-        for event in pygame.event.get():
-            # Quit detection
-            if event.type == pygame.QUIT:
-                # Update options settings' JSON
-                options_settings = {
-                    "score_to_win": options.scoretowin_buttons,
-                    "who_starts_after_a_point": options.startsafterpoint_buttons,
-                    "keyboard_sensitivity": options.keyboardsensitivity_buttons,
-                    "miscellaneous": options.miscellaneous_buttons
-                }
-                window.update_optionssettings(options_settings)
-
-                # Turn off the loop
-                run = False
-
-            # Difficulty buttons' down detection
-            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:  # left-click has been uped
-                btn_pressed = difficulty.buttons.button_down_detection()
-                if btn_pressed != None:
-                    for function in btn_switchcase[btn_pressed]:
-                        function()
-
-            # Difficulty buttons' over detection
-            if event.type == pygame.MOUSEMOTION:
-                difficulty.buttons.button_over_detection()
-
-        # Update display
-        redraw_set_difficulty()
         clock.tick(window.framerate)
 
     pygame.quit()
@@ -638,7 +574,7 @@ def mp_game_loop():
     sys.exit()
 
 
-def options_loop(from_loop):
+def options_loop():
     # Initialize options' buttons switchcase
     btn_switchcase = {
         "menu": [
@@ -823,7 +759,7 @@ def gameover_loop(on_multiplayer):
                 if btn_pressed != None:  # a button has been pressed
                     if btn_pressed == "options":
                         gameover.buttons.reset_overdetection()  # reset gameover's buttons' over detection
-                        options_loop("gameover")  # redirect to options' loop
+                        options_loop()  # redirect to options' loop
                     else:
                         for function in btn_switchcase[btn_pressed]:
                             function()
