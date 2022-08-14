@@ -19,8 +19,11 @@ from entities import Ball
 
 # Import libraries
 import pygame
+import pickle
+import neat
 import time
 import sys
+import os
 
 
 # Functions ------------------------------------------------------- #
@@ -358,9 +361,25 @@ def set_difficulty_loop():
 
 def sp_game_loop():
     # Update paddles' sensitivity
-    sensitivity = options.keyboardsensitivity_buttons.get_sensitivity_value()
-    for paddle in paddles.values():
-        paddle.update_sensitivity(sensitivity)
+    paddles["left"].update_sensitivity(
+        options.keyboardsensitivity_buttons.get_sensitivity_value())
+    paddles["right"].update_sensitivity("high")
+
+    # Get genome from pickle file
+    with open(f"{resources_path}/ai.pickle", "rb") as pickle_file:
+        genome = pickle.load(pickle_file)
+
+    # Get config file
+    config = neat.Config(
+        neat.DefaultGenome, 
+        neat.DefaultReproduction,
+        neat.DefaultSpeciesSet, 
+        neat.DefaultStagnation,
+        f"{resources_path}/config.txt"
+    )
+
+    # Create neural network
+    net = neat.nn.FeedForwardNetwork.create(genome, config)
 
     # Loop
     run = True
@@ -389,12 +408,29 @@ def sp_game_loop():
                 # Pause
                 if event.key == pygame.K_ESCAPE:
                     sound.play_pause()  # play sound
-                    pause_loop()  # redirect to pause loop
+                    pause_loop(False)  # redirect to pause loop
 
-        # Update paddles
+        # Player movement
         keys = pygame.key.get_pressed()
         paddles["left"].movement(
             keys[pygame.K_w], keys[pygame.K_s])
+
+        # Get neural network's inputs
+        inputs = (
+            paddles["right"].rect.y,  # Y coordinate of the paddle
+            ball.rect.y,  # Y coordinate of the ball
+            abs(paddles["right"].rect.x - ball.rect.x),  # Distance in the X coordinate between the ball and the paddle
+        )
+
+        # Get neural network's output
+        output = net.activate(inputs)
+
+        # Neural network's decisions (ai's movement)
+        decision = output.index(max(output))
+        if decision == 1:  # move up
+            paddles["right"].movement(True, False)
+        elif decision == 2:  # move down
+            paddles["right"].movement(False, True)
 
         # Update ball
         if not game.round_finished:
@@ -447,7 +483,7 @@ def sp_game_loop():
                 sound.play_win()
 
                 # Redirect to gameover loop
-                gameover_loop()
+                gameover_loop(False)
             elif game.scoreboard.scores["left"] >= options.score_limit:  # left player won
                 # Initialize the winning side
                 won_side = "left"
@@ -461,7 +497,7 @@ def sp_game_loop():
                 sound.play_win()
 
                 # Redirect to gameover loop
-                gameover_loop()
+                gameover_loop(False)
         else:
             # Reset ball 1.5 seconds after round winner has been declared
             dt = time.perf_counter() - game.time_of_round_end
@@ -511,7 +547,7 @@ def mp_game_loop():
                 # Pause
                 if event.key == pygame.K_ESCAPE:
                     sound.play_pause()  # play sound
-                    pause_loop()  # redirect to pause loop
+                    pause_loop(True)  # redirect to pause loop
         
         # Update paddles
         keys = pygame.key.get_pressed()
@@ -571,7 +607,7 @@ def mp_game_loop():
                 sound.play_win()
 
                 # Redirect to gameover loop
-                gameover_loop()
+                gameover_loop(True)
             elif game.scoreboard.scores["left"] >= options.score_limit:  # left player won
                 # Initialize the winning side
                 won_side = "left"
@@ -585,7 +621,7 @@ def mp_game_loop():
                 sound.play_win()
 
                 # Redirect to gameover loop
-                gameover_loop()
+                gameover_loop(True)
         else:
             # Reset ball 1.5 seconds after round winner has been declared
             dt = time.perf_counter() - game.time_of_round_end
@@ -815,6 +851,12 @@ def gameover_loop(on_multiplayer):
 # Execute --------------------------------------------------------- #
 if __name__ == "__main__":
     pygame.init()
+    resources_path = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__), 
+            "..", "resources", "windows", "game"
+            )
+        )
 
     # Initialize window
     win_size = (
